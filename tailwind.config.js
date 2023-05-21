@@ -2,7 +2,12 @@
 export default {
 	content: ['./src/**/*'],
 	theme: {
-		extend: {}
+		extend: {
+			fontFamily: {
+				sans: ['Nunito Sans', 'system-ui', 'sans-serif'],
+				title: ['Raleway', 'sans-serif']
+			}
+		}
 	},
 	plugins: []
 };
