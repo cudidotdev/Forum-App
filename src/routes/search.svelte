@@ -1,9 +1,14 @@
 <script lang="ts">
+	import MobilePopUp from '$lib/components/mobile-pop-up.svelte';
+	import outclick from '$lib/events/outclick';
+
 	import SearchIcon from '$lib/icons/search-icon.svelte';
 
 	export let mobile: boolean;
 
 	let input_focus = false;
+
+	let search_pop_up_active: boolean;
 
 	function activate_focus() {
 		input_focus = true;
@@ -11,6 +16,10 @@
 
 	function deactivate_focus() {
 		input_focus = false;
+	}
+
+	function activate_search_pop_up() {
+		search_pop_up_active = true;
 	}
 
 	$: console.log(input_focus);
@@ -21,7 +30,7 @@
 		class="relative bg-neutral-50 border border-neutral-200 rounded-full max-w-screen-smc
            w-full py-1 px-4 ring-brand-color-light ring-offset-2 transition hidden sm:flex
            {input_focus ? 'ring-2' : ''}"
-		on:blur={deactivate_focus}
+		use:outclick={deactivate_focus}
 		tabindex="-1"
 	>
 		<input
@@ -43,8 +52,10 @@
 	</div>
 {:else}
 	<div class="flex sm:hidden">
-		<button class="flex w-8 h-8 p-0.5">
+		<button class="flex w-8 h-8 p-0.5" on:click={activate_search_pop_up}>
 			<SearchIcon />
 		</button>
 	</div>
 {/if}
+
+<MobilePopUp bind:active={search_pop_up_active}>ffffffff</MobilePopUp>
