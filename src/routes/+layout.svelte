@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css';
+	import Header from './header.svelte';
 </script>
 
 <svelte:head>
@@ -7,4 +8,8 @@
 	<meta name="description" content="A forum application with sveltekit and rust by CudiLala" />
 </svelte:head>
 
-<slot />
+<div class="min-h-screen bg-neutral-100">
+	<Header />
+
+	<slot />
+</div>
