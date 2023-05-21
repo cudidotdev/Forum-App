@@ -27,8 +27,8 @@
 
 {#if !mobile}
 	<div
-		class="relative bg-neutral-50 border border-neutral-200 rounded-full max-w-screen-smc
-           w-full py-1 px-4 ring-brand-color-light ring-offset-2 transition hidden sm:flex
+		class="relative bg-neutral-50 border border-neutral-300 rounded-full max-w-screen-smc
+           w-full py-1 px-4 ring-brand-color-light ring-offset-1 transition hidden sm:flex
            {input_focus ? 'ring-2' : ''}"
 		use:outclick={deactivate_focus}
 		tabindex="-1"
