@@ -21,8 +21,6 @@
 	function activate_search_pop_up() {
 		search_pop_up_active = true;
 	}
-
-	$: console.log(input_focus);
 </script>
 
 {#if !mobile}
