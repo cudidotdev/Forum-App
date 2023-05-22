@@ -1,19 +1,18 @@
 <script lang="ts">
-	import Box from '$lib/components/box.svelte';
 	import { color_tag_map } from '$lib/constants/colors';
 
 	let tags = [
 		['Education', 'blue'],
 		['Accouting', 'red'],
-		['Making Money', 'yellow'],
+		['Making Money', 'green'],
 		['E-commerce', 'voilet'],
 		['Marketing', 'purple'],
-		['Forums', 'blue'],
+		['Forums', 'yellow'],
 		['Rust', 'red']
 	];
 </script>
 
-<Box _class="p-4">
+<div class="box p-4">
 	<h4 class="font-title text-2xl font-semibold text-neutral-700">Trending Topics</h4>
 
 	<div class="mt-4 flex flex-col gap-2">
@@ -25,4 +24,4 @@
 			</button>
 		{/each}
 	</div>
-</Box>
+</div>

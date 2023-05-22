@@ -1,11 +1,10 @@
 <script lang="ts">
-	import Box from '$lib/components/box.svelte';
 	import HeartIcon from '$lib/icons/heart-icon.svelte';
 	import RustIcon from '$lib/icons/rust-icon.svelte';
 	import SvelteIcon from '$lib/icons/svelte-icon.svelte';
 </script>
 
-<Box _class="p-4 flex flex-col gap-2 text-lg">
+<div class="box p-4 flex flex-col gap-2 text-lg w-full">
 	<h6 class="font-title font-semibold text-xl">Made with</h6>
 
 	<div class="flex items-center gap-2">
@@ -28,4 +27,4 @@
 		</span>
 		<span>Rust</span>
 	</div>
-</Box>
+</div>

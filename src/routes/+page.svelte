@@ -16,6 +16,10 @@
 
 				<Posts />
 			</div>
+
+			<div class="flex sm:hidden">
+				<Footer />
+			</div>
 		</div>
 
 		<div class="flex-shrink-0 flex-grow-0 md:w-72 lg:w-80 hidden md:flex flex-col gap-4">
