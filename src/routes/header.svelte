@@ -1,5 +1,4 @@
 <script lang="ts">
-	import PrimaryButton from '$lib/components/primary-button.svelte';
 	import NotificationIcon from '$lib/icons/notification-icon.svelte';
 	import Search from './search.svelte';
 </script>

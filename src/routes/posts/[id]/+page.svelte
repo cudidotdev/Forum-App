@@ -3,17 +3,27 @@
 	import BookmarkIcon from '$lib/icons/bookmark-icon.svelte';
 	import BookmarkSolidIcon from '$lib/icons/bookmark-solid-icon.svelte';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
+	import type { PageData } from './$types';
 
-	export let id: number;
-	export let title: string;
-	export let author: { first_name: string; last_name: string };
-	export let comments: number;
-	export let tags: [string, string][];
-	export let saved: boolean;
-	export let body: string;
+	export let data: PageData;
+	let id: number;
+	let title: string;
+	let tags: [string, string][];
+	let body: string;
+	let saved: boolean;
+	let comments: number;
+
+	$: {
+		id = data.id;
+		title = data.title;
+		tags = data.tags;
+		body = data.body;
+		saved = data.saved;
+		comments = data.comments;
+	}
 </script>
 
-<a href="/posts/{id}" class="box p-4 sm:p-8 flex flex-col gap-4">
+<div class="box p-4 sm:p-8 flex flex-col gap-4">
 	<h4 class="text-2xl sm:text-3xl font-title font-semibold">{title}</h4>
 
 	<div class="flex items-center gap-4">
@@ -62,4 +72,4 @@
 			<span class="font-semibold">{saved ? 'Saved' : 'Save'}</span>
 		</div>
 	</div>
-</a>
+</div>
