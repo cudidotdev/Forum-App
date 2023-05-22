@@ -19,7 +19,7 @@
 				<NotificationIcon />
 			</button>
 
-			<PrimaryButton type="button">Sign in</PrimaryButton>
+			<button class="primary-btn" type="button">Sign in</button>
 		</div>
 	</div>
 </header>

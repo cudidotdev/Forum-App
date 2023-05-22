@@ -14,6 +14,11 @@
 			</div>
 
 			<textarea class="input resize-none h-96 sm:h-80" placeholder="Body" />
+
+			<div class="flex gap-4">
+				<button class="primary-btn"> Submit </button>
+				<button class="secondary-btn" type="button"> Cancel </button>
+			</div>
 		</div>
 	</div>
 </div>
