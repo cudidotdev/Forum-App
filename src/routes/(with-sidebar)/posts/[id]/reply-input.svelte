@@ -2,10 +2,7 @@
 	import { onDestroy, onMount } from 'svelte';
 
 	let comment_input: HTMLTextAreaElement;
-
-	export let add_comment: (comment_input: HTMLTextAreaElement, under?: number) => void;
-
-	export let parent_id: number | undefined;
+	export let add_comment: (comment_input: HTMLTextAreaElement) => number | undefined;
 
 	onMount(() => {
 		comment_input?.focus();
@@ -23,7 +20,7 @@
 		class="input resize-none h-60"
 		placeholder="What are your thoughts"
 	/>
-	<button class="primary-btn self-end w-fit" on:click={() => add_comment(comment_input, parent_id)}>
-		Reply
-	</button>
+	<button class="primary-btn self-end w-fit" on:click={() => add_comment(comment_input)}
+		>Reply</button
+	>
 </div>

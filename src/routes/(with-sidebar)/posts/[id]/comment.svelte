@@ -7,8 +7,6 @@
 
 	export let comment: comment;
 
-	export let add_comment: (comment_input: HTMLTextAreaElement, under?: number) => void;
-
 	$: child_reply_box_visible = $active_reply === comment.id;
 
 	$: replies_n = count_replies(comment.replies);
@@ -49,10 +47,8 @@
 
 			<div class="w-full flex-grow">
 				<Comments
-					parent_id={comment.id}
-					comments={comment.replies}
-					{add_comment}
-					reply_box_visible={child_reply_box_visible}
+					bind:comments={comment.replies}
+					bind:reply_box_visible={child_reply_box_visible}
 				/>
 			</div>
 		</div>
