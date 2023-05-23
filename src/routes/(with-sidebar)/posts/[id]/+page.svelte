@@ -29,6 +29,7 @@
 	$: comments_n = count_replies(comments);
 
 	let comment_input: HTMLTextAreaElement;
+	let comment_section: Comments;
 
 	function add_comment() {
 		if (comment_input.value.trim() === '') return;
@@ -108,11 +109,14 @@
 				class="input resize-none h-60"
 				placeholder="What are your thoughts"
 			/>
-			<button class="primary-btn self-end w-fit" on:click={add_comment}>Comment</button>
+			<button
+				class="primary-btn self-end w-fit"
+				on:click={() => comment_section.add_comment(comment_input, true)}>Comment</button
+			>
 		</div>
 	</div>
 
 	<CommentSorter />
 
-	<Comments {comments} />
+	<Comments bind:this={comment_section} {comments} />
 </div>
