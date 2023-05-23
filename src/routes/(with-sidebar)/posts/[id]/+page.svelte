@@ -3,7 +3,10 @@
 	import BookmarkIcon from '$lib/icons/bookmark-icon.svelte';
 	import BookmarkSolidIcon from '$lib/icons/bookmark-solid-icon.svelte';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
+	import { partial_id } from '$lib/stores/partial-id';
 	import type { PageData } from './$types';
+	import CommentSorter from './comment-sorter.svelte';
+	import Comments from './comments.svelte';
 
 	export let data: PageData;
 	let id: number;
@@ -11,7 +14,7 @@
 	let tags: [string, string][];
 	let body: string;
 	let saved: boolean;
-	let comments: number;
+	let comments: typeof data.comments;
 
 	$: {
 		id = data.id;
@@ -20,6 +23,25 @@
 		body = data.body;
 		saved = data.saved;
 		comments = data.comments;
+	}
+
+	let comment_input: HTMLTextAreaElement;
+
+	function add_comment() {
+		if (comment_input.value.trim() === '') return;
+
+		let id = partial_id.grab();
+		comments = [
+			{
+				id,
+				body: comment_input.value.trim(),
+				replies: [],
+				author: { first_name: id.toString(), last_name: 'Lala' }
+			},
+			...comments
+		];
+
+		comment_input.value = '';
 	}
 </script>
 
@@ -58,7 +80,9 @@
 			<span class="w-6 h-6 flex">
 				<CommentIcon />
 			</span>
-			<span class="font-semibold"> {comments} Comment{comments !== 1 ? 's' : ''} </span>
+			<span class="font-semibold">
+				{comments.length} Comment{comments.length !== 1 ? 's' : ''}
+			</span>
 		</div>
 
 		<div class="flex gap-2 {saved ? 'text-brand-color' : ''}">
@@ -72,4 +96,20 @@
 			<span class="font-semibold">{saved ? 'Saved' : 'Save'}</span>
 		</div>
 	</div>
+
+	<div class="my-4">
+		<p><span>Comment as </span> <span class="text-link-blue">@cudilala</span></p>
+		<div class="flex flex-col gap-2">
+			<textarea
+				bind:this={comment_input}
+				class="input resize-none h-60"
+				placeholder="What are your thoughts"
+			/>
+			<button class="primary-btn self-end w-fit" on:click={add_comment}>Comment</button>
+		</div>
+	</div>
+
+	<CommentSorter />
+
+	<Comments {comments} />
 </div>

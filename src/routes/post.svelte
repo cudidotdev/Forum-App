@@ -13,7 +13,10 @@
 	export let body: string;
 </script>
 
-<a href="/posts/{id}" class="box p-4 sm:p-8 flex flex-col gap-4">
+<a
+	href="/posts/{id}"
+	class="box p-4 sm:p-8 flex flex-col gap-4 hover:border-brand-color-light transition"
+>
 	<h4 class="text-2xl sm:text-3xl font-title font-semibold">{title}</h4>
 
 	<div class="flex items-center gap-4">

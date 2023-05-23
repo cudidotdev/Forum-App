@@ -30,7 +30,8 @@ export default {
 				'voilet-tag-bg': '#EFF1FF',
 				'purple-tag-text': '#E562E8',
 				'purple-tag-border': '#F4A6F5',
-				'purple-tag-bg': '#FFEFFF'
+				'purple-tag-bg': '#FFEFFF',
+				'link-blue': '#1686EE'
 			},
 			boxShadow: {
 				a: '1px -1px 4px rgba(234, 70, 70, 0.3), -1px 1px 4px rgba(234, 70, 70, 0.3)'
