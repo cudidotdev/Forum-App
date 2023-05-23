@@ -3,8 +3,9 @@
 	import BookmarkIcon from '$lib/icons/bookmark-icon.svelte';
 	import BookmarkSolidIcon from '$lib/icons/bookmark-solid-icon.svelte';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
+	import { active_reply } from '$lib/stores/active-reply';
 	import { partial_id } from '$lib/stores/partial-id';
-	import { count_replies } from '$lib/utils';
+	import { count_replies, find_parent_comment } from '$lib/utils';
 	import type { PageData } from './$types';
 	import CommentSorter from './comment-sorter.svelte';
 	import Comments from './comments.svelte';
@@ -26,26 +27,40 @@
 		comments = data.comments;
 	}
 
+	let comment_input: HTMLTextAreaElement;
+
 	$: comments_n = count_replies(comments);
 
-	let comment_input: HTMLTextAreaElement;
-	let comment_section: Comments;
-
-	function add_comment() {
+	function add_comment(comment_input: HTMLTextAreaElement, under?: number) {
 		if (comment_input.value.trim() === '') return;
 
 		let id = partial_id.grab();
-		comments = [
-			{
+
+		let comment = find_parent_comment(comments, under);
+
+		if (comment)
+			comment.replies = [
+				...comment.replies,
+				{
+					id,
+					body: comment_input.value.trim(),
+					replies: [],
+					author: { first_name: 'Cudi', last_name: 'Lala' }
+				}
+			];
+		else
+			comments.unshift({
 				id,
 				body: comment_input.value.trim(),
 				replies: [],
 				author: { first_name: 'Cudi', last_name: 'Lala' }
-			},
-			...comments
-		];
+			});
+
+		comments = comments;
 
 		comment_input.value = '';
+
+		active_reply.deactivate();
 	}
 </script>
 
@@ -111,12 +126,12 @@
 			/>
 			<button
 				class="primary-btn self-end w-fit"
-				on:click={() => comment_section.add_comment(comment_input, true)}>Comment</button
+				on:click={() => add_comment(comment_input, undefined)}>Comment</button
 			>
 		</div>
 	</div>
 
 	<CommentSorter />
 
-	<Comments bind:this={comment_section} {comments} />
+	<Comments parent_id={undefined} {add_comment} {comments} />
 </div>
