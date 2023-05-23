@@ -4,6 +4,7 @@
 	import BookmarkSolidIcon from '$lib/icons/bookmark-solid-icon.svelte';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
 	import { partial_id } from '$lib/stores/partial-id';
+	import { count_replies } from '$lib/utils';
 	import type { PageData } from './$types';
 	import CommentSorter from './comment-sorter.svelte';
 	import Comments from './comments.svelte';
@@ -25,6 +26,8 @@
 		comments = data.comments;
 	}
 
+	$: comments_n = count_replies(comments);
+
 	let comment_input: HTMLTextAreaElement;
 
 	function add_comment() {
@@ -36,7 +39,7 @@
 				id,
 				body: comment_input.value.trim(),
 				replies: [],
-				author: { first_name: id.toString(), last_name: 'Lala' }
+				author: { first_name: 'Cudi', last_name: 'Lala' }
 			},
 			...comments
 		];
@@ -81,7 +84,7 @@
 				<CommentIcon />
 			</span>
 			<span class="font-semibold">
-				{comments.length} Comment{comments.length !== 1 ? 's' : ''}
+				{comments_n} Comment{comments_n !== 1 ? 's' : ''}
 			</span>
 		</div>
 

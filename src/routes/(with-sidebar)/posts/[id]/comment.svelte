@@ -1,12 +1,15 @@
 <script lang="ts">
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
 	import { active_reply } from '$lib/stores/active-reply';
+	import { count_replies } from '$lib/utils';
 	import Comments from './comments.svelte';
 	import type { comment } from './types';
 
 	export let comment: comment;
 
 	$: child_reply_box_visible = $active_reply === comment.id;
+
+	$: replies_n = count_replies(comment.replies);
 </script>
 
 <div class="flex gap-3 items-center">
@@ -26,14 +29,14 @@
 	</div>
 
 	<div class="flex flex-col gap-3 w-full flex-grow">
-		<p>{comment.body}</p>
+		<p class="whitespace-pre-wrap">{comment.body}</p>
 
 		<button class="flex gap-2 flex-shrink-0" on:click={() => active_reply.activate(comment.id)}>
 			<span class="w-6 h-6 flex">
 				<CommentIcon />
 			</span>
 			<span class="font-semibold">
-				{comment.replies.length} Repl{comment.replies.length !== 1 ? 'ies' : 'y'}
+				{replies_n} Repl{replies_n !== 1 ? 'ies' : 'y'}
 			</span>
 		</button>
 

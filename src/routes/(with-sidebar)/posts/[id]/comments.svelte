@@ -33,7 +33,7 @@
 
 <div class="flex flex-col gap-2">
 	{#each comments as comment (comment.id)}
-		<Comment {comment} />
+		<Comment bind:comment />
 	{/each}
 	{#if reply_box_visible}
 		<ReplyInput bind:comment_input {add_comment} />
