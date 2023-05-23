@@ -21,7 +21,7 @@
 </div>
 
 <div class="flex gap-3 items-stretch">
-	<div class="flex w-12 flex-shrink-0 justify-center">
+	<div class="hidden md:flex w-12 flex-shrink-0 justify-center">
 		<div class="h-full bg-neutral-200 w-px" />
 	</div>
 
@@ -37,6 +37,17 @@
 			</span>
 		</button>
 
-		<Comments bind:comments={comment.replies} bind:reply_box_visible={child_reply_box_visible} />
+		<div class="flex w-full">
+			<div class="flex md:hidden mr-4 smc:mr-6 flex-shrink-0 justify-center">
+				<div class="h-full bg-neutral-200 w-px" />
+			</div>
+
+			<div class="w-full flex-grow">
+				<Comments
+					bind:comments={comment.replies}
+					bind:reply_box_visible={child_reply_box_visible}
+				/>
+			</div>
+		</div>
 	</div>
 </div>

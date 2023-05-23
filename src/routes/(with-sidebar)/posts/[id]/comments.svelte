@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { active_reply } from '$lib/stores/active-reply';
 	import { partial_id } from '$lib/stores/partial-id';
 	import Comment from './comment.svelte';
+	import ReplyInput from './reply-input.svelte';
 	import type { comment } from './types';
 
 	export let comments: comment[];
@@ -19,11 +21,13 @@
 				id,
 				body: comment_input.value.trim(),
 				replies: [],
-				author: { first_name: id.toString(), last_name: 'Lala' }
+				author: { first_name: 'Cudi', last_name: 'Lala' }
 			}
 		];
 
 		comment_input.value = '';
+
+		active_reply.deactivate();
 	}
 </script>
 
@@ -32,13 +36,6 @@
 		<Comment {comment} />
 	{/each}
 	{#if reply_box_visible}
-		<div class="flex flex-col gap-2">
-			<textarea
-				bind:this={comment_input}
-				class="input resize-none h-60"
-				placeholder="What are your thoughts"
-			/>
-			<button class="primary-btn self-end w-fit" on:click={add_comment}>Reply</button>
-		</div>
+		<ReplyInput bind:comment_input {add_comment} />
 	{/if}
 </div>
