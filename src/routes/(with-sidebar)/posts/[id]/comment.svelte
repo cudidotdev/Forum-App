@@ -49,6 +49,7 @@
 				<Comments
 					bind:comments={comment.replies}
 					bind:reply_box_visible={child_reply_box_visible}
+					parent_id={comment.id}
 				/>
 			</div>
 		</div>

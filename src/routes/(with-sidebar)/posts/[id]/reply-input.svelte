@@ -2,7 +2,7 @@
 	import { onDestroy, onMount } from 'svelte';
 
 	let comment_input: HTMLTextAreaElement;
-	export let add_comment: (comment_input: HTMLTextAreaElement) => number | undefined;
+	export let add_comment: (comment_input: HTMLTextAreaElement) => void;
 
 	onMount(() => {
 		comment_input?.focus();

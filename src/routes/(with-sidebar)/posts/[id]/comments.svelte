@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { active_reply } from '$lib/stores/active-reply';
 	import { partial_id } from '$lib/stores/partial-id';
-	import { count_replies } from '$lib/utils';
 	import Comment from './comment.svelte';
 	import ReplyInput from './reply-input.svelte';
 	import type { comment } from './types';
 
 	export let comments: comment[];
+
+	export let parent_id: number | undefined;
 
 	export let reply_box_visible = false;
 
@@ -14,32 +15,27 @@
 		if (comment_input.value.trim() === '') return;
 
 		let id = partial_id.grab();
+
 		if (top)
-			comments = [
-				{
-					id,
-					body: comment_input.value.trim(),
-					replies: [],
-					author: { first_name: 'Cudi', last_name: 'Lala' }
-				},
-				...comments
-			];
+			comments.unshift({
+				id,
+				body: comment_input.value.trim(),
+				replies: [],
+				author: { first_name: 'Cudi', last_name: 'Lala' }
+			});
 		else
-			comments = [
-				...comments,
-				{
-					id,
-					body: comment_input.value.trim(),
-					replies: [],
-					author: { first_name: 'Cudi', last_name: 'Lala' }
-				}
-			];
+			comments.push({
+				id,
+				body: comment_input.value.trim(),
+				replies: [],
+				author: { first_name: 'Cudi', last_name: 'Lala' }
+			});
+
+		comments = comments;
 
 		comment_input.value = '';
 
 		active_reply.deactivate();
-
-		return count_replies(comments);
 	}
 </script>
 

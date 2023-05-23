@@ -3,7 +3,6 @@
 	import BookmarkIcon from '$lib/icons/bookmark-icon.svelte';
 	import BookmarkSolidIcon from '$lib/icons/bookmark-solid-icon.svelte';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
-	import { partial_id } from '$lib/stores/partial-id';
 	import { count_replies } from '$lib/utils';
 	import type { PageData } from './$types';
 	import CommentSorter from './comment-sorter.svelte';
@@ -30,23 +29,6 @@
 
 	let comment_input: HTMLTextAreaElement;
 	let comment_section: Comments;
-
-	function add_comment() {
-		if (comment_input.value.trim() === '') return;
-
-		let id = partial_id.grab();
-		comments = [
-			{
-				id,
-				body: comment_input.value.trim(),
-				replies: [],
-				author: { first_name: 'Cudi', last_name: 'Lala' }
-			},
-			...comments
-		];
-
-		comment_input.value = '';
-	}
 </script>
 
 <div class="box p-4 sm:p-8 flex flex-col gap-4">
@@ -118,5 +100,5 @@
 
 	<CommentSorter />
 
-	<Comments bind:this={comment_section} {comments} />
+	<Comments parent_id={undefined} bind:this={comment_section} bind:comments />
 </div>
