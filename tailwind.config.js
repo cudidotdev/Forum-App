@@ -34,7 +34,8 @@ export default {
 				'link-blue': '#1686EE'
 			},
 			boxShadow: {
-				a: '1px -1px 4px rgba(234, 70, 70, 0.3), -1px 1px 4px rgba(234, 70, 70, 0.3)'
+				a: '1px -1px 4px rgba(234, 70, 70, 0.3), -1px 1px 4px rgba(234, 70, 70, 0.3)',
+				b: '1px -1px 4px rgba(0, 0, 0, 0.1), -1px 1px 4px rgba(0, 0, 0, 0.1)'
 			}
 		}
 	},

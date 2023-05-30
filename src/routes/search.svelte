@@ -56,4 +56,8 @@
 	</div>
 {/if}
 
-<MobilePopUp bind:active={search_pop_up_active}>ffffffff</MobilePopUp>
+<div class="sm:hidden">
+	<MobilePopUp active={search_pop_up_active} close_popup={() => (search_pop_up_active = false)}>
+		ffffffff
+	</MobilePopUp>
+</div>

@@ -1,20 +1,18 @@
 <script lang="ts">
 	import outclick from '$lib/events/outclick';
 
-	export let active: boolean = false;
+	export let active: boolean;
+	export let close_popup: () => void;
 
 	let visible: boolean;
-
-	function close_popup() {
-		active = false;
-	}
 
 	$: active ? (visible = active) : setTimeout(() => (visible = active), 300);
 </script>
 
 <div
-	class="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 transition duration-300 z-40
-         {active ? 'opacity-100' : 'opacity-0'} {visible ? 'visible' : 'invisible'}"
+	class="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 transition duration-300 z-40 {active
+		? 'opacity-100'
+		: 'opacity-0'} {visible ? 'visible' : 'invisible'}"
 >
 	<div class="w-full h-full relative">
 		<div

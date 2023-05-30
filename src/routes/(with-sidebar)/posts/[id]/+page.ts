@@ -1,7 +1,16 @@
 import type { PageLoad } from './$types';
 import type { post_details } from './types';
 
-export const load = (() => {
+export const load = (({ fetch }) => {
+	try {
+		fetch('http://127.0.0.1:8080', {
+			method: 'PUT',
+			headers: { Authorization: 'Bearer asdfalsdfkj' }
+		});
+	} catch (error) {
+		/**/
+	}
+
 	const data: post_details = {
 		id: 1,
 		title: 'What makes a good font for bloggers?',
