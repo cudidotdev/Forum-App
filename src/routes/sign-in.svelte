@@ -1,10 +1,21 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
+	// export let active;
+
 	let on_sign_in = true;
-	let username_input: HTMLInputElement;
+	let username_input_1: HTMLInputElement;
+	let username_input_2: HTMLInputElement;
 
 	$: {
-		if (on_sign_in) username_input?.focus();
+		if (on_sign_in) username_input_1?.focus();
+		else username_input_2?.focus();
 	}
+
+	onMount(() => {
+		username_input_1.focus();
+		console.log(username_input_1, username_input_2);
+	});
 </script>
 
 <div class="w-full">
@@ -30,7 +41,7 @@
 
 	<div class="py-6 px-3 flex flex-col gap-4">
 		{#if on_sign_in}
-			<input class="input" placeholder="Username" bind:this={username_input} />
+			<input class="input" placeholder="Username" bind:this={username_input_1} />
 
 			<input class="input" placeholder="Password" type="password" />
 
@@ -40,7 +51,7 @@
 				>Do not have an account?</button
 			>
 		{:else}
-			<input class="input" placeholder="Username" />
+			<input class="input" placeholder="Username" bind:this={username_input_2} />
 			<input class="input" placeholder="Password" />
 			<input class="input" placeholder="Confirm Password" />
 			<button class="primary-btn text-center justify-center">Sign Up</button>
