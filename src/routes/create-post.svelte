@@ -8,6 +8,7 @@
 	<input
 		class="bg-neutral-50 border border-neutral-300 outline-none rounded-lg px-4 py-2 w-full font-medium placeholder:text-neutral-600 text-left focus:ring-2 ring-offset-1 ring-brand-color-light"
 		placeholder="Create Post"
-		on:focus={() => goto('/create-post')}
+		on:mousedown={() => goto('/create-post')}
+		on:keydown={(e) => e.key === 'Enter' && goto('/create-post')}
 	/>
 </div>

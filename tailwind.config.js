@@ -35,7 +35,7 @@ export default {
 			},
 			boxShadow: {
 				a: '1px -1px 4px rgba(234, 70, 70, 0.3), -1px 1px 4px rgba(234, 70, 70, 0.3)',
-				b: '1px -1px 4px rgba(0, 0, 0, 0.1), -1px 1px 4px rgba(0, 0, 0, 0.1)'
+				b: '2px -2px 10px rgba(0, 0, 0, 0.15), -2px 2px 10px rgba(0, 0, 0, 0.15)'
 			}
 		}
 	},

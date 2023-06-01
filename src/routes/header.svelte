@@ -1,18 +1,10 @@
 <script lang="ts">
-	import MobilePopUp from '$lib/components/mobile-pop-up.svelte';
 	import NotificationIcon from '$lib/icons/notification-icon.svelte';
 	import Search from './search.svelte';
-	import SignIn from './sign-in.svelte';
-
-	let sign_in_active = false;
-	let sign_in_active_mobile = false;
+	import { sign_in_store } from '$lib/stores/sign-in';
 
 	function toggle_sign_in() {
-		sign_in_active = !sign_in_active;
-	}
-
-	function toggle_sign_in_mobile() {
-		sign_in_active_mobile = !sign_in_active_mobile;
+		sign_in_store.switch();
 	}
 </script>
 
@@ -31,28 +23,7 @@
 				<NotificationIcon />
 			</button>
 
-			<div class="relative">
-				<button class="primary-btn hidden sm:flex" type="button" on:click={toggle_sign_in}>
-					Sign in
-				</button>
-				<button class="primary-btn flex sm:hidden" type="button" on:click={toggle_sign_in_mobile}>
-					Sign in
-				</button>
-
-				<div
-					class="box shadow-b absolute top-[calc(100%+0.25rem)] right-0 bg-white w-80 {sign_in_active
-						? 'hidden sm:flex'
-						: 'hidden'}"
-				>
-					<SignIn />
-				</div>
-			</div>
+			<button class="primary-btn" type="button" on:click={toggle_sign_in}> Sign in </button>
 		</div>
 	</div>
 </header>
-
-<div class="sm:hidden">
-	<MobilePopUp active={sign_in_active_mobile} close_popup={() => (sign_in_active_mobile = false)}>
-		<SignIn />
-	</MobilePopUp>
-</div>

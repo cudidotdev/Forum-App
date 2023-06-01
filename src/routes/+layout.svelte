@@ -1,8 +1,7 @@
 <script lang="ts">
+	import SignIn from '$lib/components/sign-in/sign-in.svelte';
 	import '../app.css';
-	import Footer from './footer.svelte';
 	import Header from './header.svelte';
-	import TrendingTopics from './trending-topics.svelte';
 </script>
 
 <svelte:head>
@@ -19,3 +18,5 @@
 		</div>
 	</div>
 </div>
+
+<SignIn />
