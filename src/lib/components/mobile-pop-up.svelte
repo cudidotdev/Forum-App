@@ -1,7 +1,6 @@
 <script lang="ts">
 	import outclick from '$lib/events/outclick';
 	import { stop_bg_scroll } from '$lib/utils';
-	import { tick } from 'svelte';
 
 	export let active: boolean;
 	export let close_popup: () => void;
@@ -35,7 +34,9 @@
 				<div class="w-28 bg-black h-1.5 opacity-10 rounded-full" />
 			</div>
 
-			<slot />
+			<div class="max-h-[85vh] overflow-auto">
+				<slot />
+			</div>
 		</div>
 	</div>
 </div>
