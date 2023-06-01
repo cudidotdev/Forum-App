@@ -20,7 +20,7 @@
 	<h4 class="text-2xl sm:text-3xl font-title font-semibold">{title}</h4>
 
 	<div class="flex items-center gap-4">
-		<span class="flex w-12 h-12 bg-neutral-100 flex-shrink-0 rounded-full" />
+		<span class="flex w-12 h-12 bg-neutral-200 flex-shrink-0 rounded-full" />
 
 		<div class="flex flex-col flex-shrink-0">
 			<span class="font-bold text-lg">Cudi Lala</span>

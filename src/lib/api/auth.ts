@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { url } from '.';
+import auth_store from '$lib/stores/auth';
+import Cookies from 'js-cookie';
 
 const auth = {
 	sign_in: (username: string, password: string): Promise<auth_response> => {
@@ -12,7 +14,10 @@ const auth = {
 				method: 'POST'
 			})
 				.then((r) => r.json())
-				.then(resolve)
+				.then((r) => {
+					if (r.success) auth_store.sign_in(r.data);
+					resolve(r);
+				})
 				.catch((e) => resolve({ success: false, message: e?.message || 'Unknown error' }));
 		});
 	},
@@ -31,9 +36,31 @@ const auth = {
 				method: 'POST'
 			})
 				.then((r) => r.json())
-				.then(resolve)
+				.then((r) => {
+					if (r.success) auth_store.sign_in(r.data);
+					resolve(r);
+				})
 				.catch((e) => resolve({ success: false, message: e?.message || 'Unknown error' }));
 		});
+	},
+
+	sign_out: auth_store.sign_out,
+
+	verify_auth: () => {
+		const access_token = Cookies.get('access_token');
+
+		if (!access_token) return auth.sign_out();
+
+		fetch(url + '/auth', {
+			method: 'GET',
+			headers: { Authorization: `bearer ${access_token}` }
+		})
+			.then((r) => r.json())
+			.then((r) => {
+				if (r.success) auth_store.sign_in({ ...r.data, access_token });
+				else auth.sign_out();
+			})
+			.catch(auth.sign_out);
 	}
 };
 

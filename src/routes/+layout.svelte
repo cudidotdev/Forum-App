@@ -1,8 +1,13 @@
 <script lang="ts">
 	import '../app.css';
-
 	import AuthModal from '$lib/components/auth/modal.svelte';
 	import Header from './header.svelte';
+	import { afterNavigate } from '$app/navigation';
+	import api from '$lib/api';
+
+	afterNavigate(() => {
+		api.auth.verify_auth();
+	});
 </script>
 
 <svelte:head>

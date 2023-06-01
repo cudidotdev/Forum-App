@@ -25,7 +25,11 @@
 				<NotificationIcon />
 			</button>
 
-			<button class="primary-btn" type="button" on:click={toggle_sign_in}> Sign in </button>
+			{#if !$auth.signed_in}
+				<button class="primary-btn" type="button" on:click={toggle_sign_in}>Sign in</button>
+			{:else}
+				<span class="flex w-10 h-10 p-0.5 bg-neutral-200 rounded-full" />
+			{/if}
 		</div>
 	</div>
 </header>
