@@ -1,6 +1,7 @@
 <script lang="ts">
-	import SignIn from '$lib/components/sign-in/sign-in.svelte';
 	import '../app.css';
+
+	import AuthModal from '$lib/components/auth/modal.svelte';
 	import Header from './header.svelte';
 </script>
 
@@ -19,4 +20,4 @@
 	</div>
 </div>
 
-<SignIn />
+<AuthModal />

@@ -1,4 +1,4 @@
-import user from './user';
+import auth from './auth';
 
 export const url =
 	process.env.NODE_ENV === 'development'
@@ -6,7 +6,7 @@ export const url =
 		: 'api.forum.projects.cudilala.io';
 
 const api = {
-	user
+	auth
 };
 
 export default api;

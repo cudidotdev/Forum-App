@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { sign_in_store } from '$lib/stores/sign-in';
+	import auth from '$lib/stores/auth';
 	import api from '$lib/api';
 
 	let username_input: HTMLInputElement;
@@ -11,21 +11,25 @@
 	async function sign_in() {
 		error_message = undefined;
 
-		let res = await api.user.sign_in(username_input.value, password_input.value);
+		let res = await api.auth.sign_in(username_input.value, password_input.value);
 
 		if (res.success === false) {
 			error_message = res.message;
 
 			switch (res?.error?.name) {
 				case 'username':
+					username_input.select();
 					username_input.focus();
 					break;
 				case 'password':
+					password_input.select();
 					password_input.focus();
 					break;
 			}
 			return;
 		}
+
+		auth.modal.close();
 	}
 
 	onMount(() => {
@@ -48,13 +52,15 @@
 
 		<button
 			class="secondary-btn shadow-a justify-center text-center"
-			on:click={() => sign_in_store.close()}>Cancel</button
+			type="button"
+			on:click={() => auth.modal.close()}>Cancel</button
 		>
 	</div>
 
 	<button
+		type="button"
 		class="text-brand-color-light hover:text-brand-color self-start text-sm"
-		on:click={() => sign_in_store.switch_tab('sign-up')}
+		on:click={() => auth.modal.switch_tab('sign-up')}
 	>
 		Do not have an account?
 	</button>

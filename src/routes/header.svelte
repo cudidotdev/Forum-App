@@ -1,10 +1,10 @@
 <script lang="ts">
 	import NotificationIcon from '$lib/icons/notification-icon.svelte';
 	import Search from './search.svelte';
-	import { sign_in_store } from '$lib/stores/sign-in';
+	import auth from '$lib/stores/auth';
 
 	function toggle_sign_in() {
-		sign_in_store.switch();
+		auth.modal.toggle();
 	}
 </script>
 
