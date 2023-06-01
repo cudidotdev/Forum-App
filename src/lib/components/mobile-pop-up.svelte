@@ -1,18 +1,24 @@
 <script lang="ts">
 	import outclick from '$lib/events/outclick';
+	import { stop_bg_scroll } from '$lib/utils';
+	import { tick } from 'svelte';
 
 	export let active: boolean;
 	export let close_popup: () => void;
 
+	let container: HTMLDivElement | undefined;
+
 	let visible: boolean;
 
 	$: active ? (visible = active) : setTimeout(() => (visible = active), 300);
+	$: stop_bg_scroll(container, visible);
 </script>
 
 <div
-	class="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 transition duration-300 {active
+	class="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 transition duration-300 sm:hidden {active
 		? 'opacity-100 z-40'
 		: 'opacity-0 -z-40'} {visible ? 'visible sm:invisible' : 'invisible'}"
+	bind:this={container}
 >
 	<div class="w-full h-full relative">
 		<div

@@ -39,12 +39,7 @@
 	</div>
 </div>
 
-<MobilePopUp
-	active={$sign_in_store.open}
-	close_popup={() => {
-		sign_in_store.switch();
-	}}
->
+<MobilePopUp active={$sign_in_store.open} close_popup={sign_in_store.close}>
 	<div class="w-full">
 		<div class="font-title flex font-bold">
 			<button

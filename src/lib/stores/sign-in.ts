@@ -8,11 +8,25 @@ function sign_in_store_fn() {
 
 	return {
 		subscribe,
+
+		open: (on_sign_in = true) =>
+			update(() => ({
+				open: true,
+				on_sign_in
+			})),
+
+		close: () =>
+			update((b) => ({
+				open: false,
+				on_sign_in: b.on_sign_in
+			})),
+
 		switch: (on_sign_in = true) =>
 			update((b) => ({
 				open: !b.open,
 				on_sign_in
 			})),
+
 		switch_tab: (t: 'sign-in' | 'sign-up') =>
 			update((b) => ({
 				open: b.open,
