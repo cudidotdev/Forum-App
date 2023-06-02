@@ -61,6 +61,25 @@ const auth = {
 				else auth.sign_out();
 			})
 			.catch(auth.sign_out);
+	},
+
+	server_verify_auth: (access_token: string) => {
+		return new Promise((resolve) => {
+			fetch(api.url() + '/auth', {
+				method: 'GET',
+				headers: { Authorization: `Bearer ${access_token}` }
+			})
+				.then((r) => r.json())
+				.then((r) => {
+					if (r.success) auth_store.sign_in({ ...r.data, access_token });
+					else auth.sign_out();
+					resolve({});
+				})
+				.catch(() => {
+					resolve({});
+					auth.sign_out();
+				});
+		});
 	}
 };
 

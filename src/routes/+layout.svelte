@@ -4,13 +4,9 @@
 	import Header from './header.svelte';
 	import { afterNavigate } from '$app/navigation';
 	import api from '$lib/api';
-	import auth from '$lib/stores/auth';
-
-	console.log('adf');
-	console.log($auth.user);
 
 	afterNavigate(() => {
-		// api.auth.verify_auth();
+		api.auth.verify_auth();
 	});
 </script>
 
