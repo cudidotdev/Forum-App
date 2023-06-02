@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { url } from '.';
 import auth_store from '$lib/stores/auth';
 import Cookies from 'js-cookie';
+import api from '.';
 
 const auth = {
 	sign_in: (username: string, password: string): Promise<auth_response> => {
 		return new Promise((resolve) => {
-			fetch(url + '/auth/sign-in', {
+			fetch(api.url() + '/auth/sign-in', {
 				headers: {
 					'Content-Type': 'application/json'
 				},
@@ -28,7 +28,7 @@ const auth = {
 		confirm_password: string
 	): Promise<auth_response> => {
 		return new Promise((resolve) => {
-			fetch(url + '/auth/sign-up', {
+			fetch(api.url() + '/auth/sign-up', {
 				headers: {
 					'Content-Type': 'application/json'
 				},
@@ -51,7 +51,7 @@ const auth = {
 
 		if (!access_token) return auth.sign_out();
 
-		fetch(url + '/auth', {
+		fetch(api.url() + '/auth', {
 			method: 'GET',
 			headers: { Authorization: `bearer ${access_token}` }
 		})

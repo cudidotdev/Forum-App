@@ -1,11 +1,8 @@
 import auth from './auth';
-
-export const url =
-	process.env.NODE_ENV === 'development'
-		? 'http://localhost:8080'
-		: 'api.forum.projects.cudilala.io';
+import { browser, dev } from '$app/environment';
 
 const api = {
+	url: () => (browser || dev ? 'http://127.0.0.1:8080' : 'https://api.forum.projects.cudilala.io'),
 	auth
 };
 
