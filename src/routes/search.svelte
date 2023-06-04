@@ -1,6 +1,5 @@
 <script lang="ts">
 	import MobilePopUp from '$lib/components/mobile-pop-up.svelte';
-	import outclick from '$lib/events/outclick';
 
 	import SearchIcon from '$lib/icons/search-icon.svelte';
 
@@ -28,13 +27,13 @@
 		class="relative bg-neutral-50 border border-neutral-300 rounded-full max-w-screen-smc
            w-full py-1 px-4 ring-brand-color-light ring-offset-1 transition hidden sm:flex
            {input_focus ? 'ring-2' : ''}"
-		use:outclick={deactivate_focus}
+		on:focus|capture={activate_focus}
+		on:blur|capture={deactivate_focus}
 		tabindex="-1"
 	>
 		<input
 			class="order-2 flex-grow border-none outline-none peer placeholder:text-neutral-600 placeholder:font-semibold font-medium"
 			placeholder="Search..."
-			on:focus={activate_focus}
 		/>
 
 		<span class="order-1 flex w-6 h-6 text-neutral-600 peer-focus:text-neutral-800 mr-3">

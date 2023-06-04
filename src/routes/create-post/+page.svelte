@@ -1,7 +1,23 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import auth from '$lib/stores/auth';
 	import { onMount } from 'svelte';
 
 	let title_input: HTMLInputElement;
+	let body_input: HTMLTextAreaElement;
+
+	let submit_clicked = false;
+
+	$: if ($auth.signed_in === true && submit_clicked) submit();
+
+	function handle_submit() {
+		submit_clicked = true;
+		if (!$auth.signed_in) auth.modal.open();
+	}
+
+	async function submit() {
+		goto('/');
+	}
 
 	onMount(() => {
 		title_input?.focus();
@@ -14,15 +30,13 @@
 	<div class="box p-2 sm:p-4 w-full max-w-screen-sm flex flex-col gap-4">
 		<input type="text" placeholder="Title" class="input" bind:this={title_input} />
 
-		<div class="box py-2 px-4 bg-neutral-50">
-			<span class="text-neutral-600 font-semibold">Topics</span>
-		</div>
+		<input type="text" placeholder="Topics: Seperate with commas" class="input" />
 
-		<textarea class="input resize-none h-96 sm:h-80" placeholder="Body" />
+		<textarea class="input resize-none h-96 sm:h-80" placeholder="Body" bind:this={body_input} />
 
 		<div class="flex gap-4">
-			<button class="primary-btn"> Submit </button>
-			<button class="secondary-btn" type="button" on:click={() => history.back()}> Cancel </button>
+			<button class="primary-btn" on:click={handle_submit}> Submit </button>
+			<a class="secondary-btn" type="button" href="/"> Cancel </a>
 		</div>
 	</div>
 </div>
