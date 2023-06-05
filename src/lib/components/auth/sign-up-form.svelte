@@ -2,12 +2,22 @@
 	import { onMount } from 'svelte';
 	import auth from '$lib/stores/auth';
 	import api from '$lib/api';
+	import page_loader from '$lib/stores/page-loader';
 
 	let username_input: HTMLInputElement;
 	let password_input: HTMLInputElement;
 	let confirm_password_input: HTMLInputElement;
 
 	let error_message: string | undefined;
+
+	let sign_up_clicked = false;
+
+	$: {
+		if (sign_up_clicked) {
+			page_loader.start();
+			sign_up();
+		} else page_loader.stop();
+	}
 
 	async function sign_up() {
 		error_message = undefined;
@@ -17,6 +27,8 @@
 			password_input.value,
 			confirm_password_input.value
 		);
+
+		sign_up_clicked = false;
 
 		if (res.success === false) {
 			error_message = res.message;
@@ -35,6 +47,7 @@
 					confirm_password_input.focus();
 					break;
 			}
+
 			return;
 		}
 
@@ -46,7 +59,10 @@
 	});
 </script>
 
-<form class="flex flex-col gap-4 px-3 py-4" on:submit|preventDefault={sign_up}>
+<form
+	class="flex flex-col gap-4 px-3 py-4"
+	on:submit|preventDefault={() => (sign_up_clicked = true)}
+>
 	<div class="flex flex-col gap-2">
 		<input class="input" placeholder="Username" bind:this={username_input} />
 		<input class="input" placeholder="Password" type="password" bind:this={password_input} />

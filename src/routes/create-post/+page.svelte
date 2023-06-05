@@ -28,6 +28,8 @@
 			access_token: $auth.user?.access_token || ''
 		});
 
+		submit_clicked = false;
+
 		page_loader.stop();
 
 		// goto('/');
