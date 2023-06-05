@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import api from '$lib/api';
 	import auth from '$lib/stores/auth';
-	import pageLoader from '$lib/stores/page-loader';
+	import page_loader from '$lib/stores/page-loader';
 	import { onMount } from 'svelte';
 
 	let title_input: HTMLInputElement;
@@ -19,7 +19,7 @@
 	}
 
 	async function submit() {
-		pageLoader.start();
+		page_loader.start();
 
 		let data = await api.posts.create({
 			title: title_input.value,
@@ -28,7 +28,7 @@
 			access_token: $auth.user?.access_token || ''
 		});
 
-		pageLoader.stop();
+		page_loader.stop();
 
 		// goto('/');
 	}
