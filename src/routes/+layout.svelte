@@ -2,10 +2,17 @@
 	import '../app.css';
 	import AuthModal from '$lib/components/auth/modal.svelte';
 	import Header from './header.svelte';
-	import { afterNavigate } from '$app/navigation';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import api from '$lib/api';
+	import PageLoader from '$lib/components/loaders/page-loader.svelte';
+	import page_loader from '$lib/stores/page-loader';
+
+	beforeNavigate(() => {
+		page_loader.start();
+	});
 
 	afterNavigate(() => {
+		page_loader.stop();
 		api.auth.verify_auth();
 	});
 </script>
@@ -14,6 +21,8 @@
 	<title>A Forum application with svelkit and rust by CudiLala</title>
 	<meta name="description" content="A forum application with sveltekit and rust by CudiLala" />
 </svelte:head>
+
+<PageLoader active={$page_loader} />
 
 <div class="min-h-screen bg-neutral-100">
 	<Header />

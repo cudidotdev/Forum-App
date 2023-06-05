@@ -36,6 +36,15 @@ export default {
 			boxShadow: {
 				a: '1px -1px 4px rgba(234, 70, 70, 0.3), -1px 1px 4px rgba(234, 70, 70, 0.3)',
 				b: '2px -2px 10px rgba(0, 0, 0, 0.15), -2px 2px 10px rgba(0, 0, 0, 0.15)'
+			},
+			keyframes: {
+				'pass-by': {
+					'0%': { transform: 'translateX(-100%)' },
+					'100%': { transform: 'translateX(calc(100vw + 100%))' }
+				}
+			},
+			animation: {
+				'pass-by': 'pass-by 1.5s linear infinite'
 			}
 		}
 	},

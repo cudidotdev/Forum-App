@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import api from '$lib/api';
 	import auth from '$lib/stores/auth';
+	import pageLoader from '$lib/stores/page-loader';
 	import { onMount } from 'svelte';
 
 	let title_input: HTMLInputElement;
+	let topic_input: HTMLInputElement;
 	let body_input: HTMLTextAreaElement;
 
 	let submit_clicked = false;
@@ -16,7 +19,18 @@
 	}
 
 	async function submit() {
-		goto('/');
+		pageLoader.start();
+
+		let data = await api.posts.create({
+			title: title_input.value,
+			topics: topic_input.value.split(','),
+			body: body_input.value,
+			access_token: $auth.user?.access_token || ''
+		});
+
+		pageLoader.stop();
+
+		// goto('/');
 	}
 
 	onMount(() => {
@@ -30,7 +44,12 @@
 	<div class="box p-2 sm:p-4 w-full max-w-screen-sm flex flex-col gap-4">
 		<input type="text" placeholder="Title" class="input" bind:this={title_input} />
 
-		<input type="text" placeholder="Topics: Seperate with commas" class="input" />
+		<input
+			type="text"
+			placeholder="Topics: Seperate with commas"
+			class="input"
+			bind:this={topic_input}
+		/>
 
 		<textarea class="input resize-none h-96 sm:h-80" placeholder="Body" bind:this={body_input} />
 
