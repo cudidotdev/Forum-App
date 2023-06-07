@@ -9,18 +9,23 @@
 	let topic_input: HTMLInputElement;
 	let body_input: HTMLTextAreaElement;
 
-	let submit_clicked = false;
+	let on_submit = false;
 
-	$: if ($auth.signed_in === true && submit_clicked) submit();
+	function start_submit() {
+		if (on_submit) return;
 
-	function handle_submit() {
-		submit_clicked = true;
-		if (!$auth.signed_in) auth.modal.open();
+		on_submit = true;
+		page_loader.start();
+		submit();
+	}
+
+	function end_submit() {
+		if (!on_submit) return;
+		on_submit = false;
+		page_loader.stop();
 	}
 
 	async function submit() {
-		page_loader.start();
-
 		let data = await api.posts.create({
 			title: title_input.value,
 			topics: topic_input.value.split(','),
@@ -28,10 +33,7 @@
 			access_token: $auth.user?.access_token || ''
 		});
 
-		submit_clicked = false;
-
-		page_loader.stop();
-
+		end_submit();
 		// goto('/');
 	}
 
@@ -43,7 +45,10 @@
 <div class="flex flex-col gap-4 w-full">
 	<h1 class="font-title text-xl font-semibold">Create Post</h1>
 
-	<div class="box p-2 sm:p-4 w-full max-w-screen-sm flex flex-col gap-4">
+	<form
+		class="box p-2 sm:p-4 w-full max-w-screen-sm flex flex-col gap-4"
+		on:submit|preventDefault={start_submit}
+	>
 		<input type="text" placeholder="Title" class="input" bind:this={title_input} />
 
 		<input
@@ -56,8 +61,8 @@
 		<textarea class="input resize-none h-96 sm:h-80" placeholder="Body" bind:this={body_input} />
 
 		<div class="flex gap-4">
-			<button class="primary-btn" on:click={handle_submit}> Submit </button>
-			<a class="secondary-btn" type="button" href="/"> Cancel </a>
+			<button class="primary-btn" type="submit"> Submit </button>
+			<a class="secondary-btn" href="/"> Cancel </a>
 		</div>
-	</div>
+	</form>
 </div>

@@ -10,13 +10,19 @@
 
 	let error_message: string | undefined;
 
-	let sign_up_clicked = false;
+	let on_submit = false;
 
-	$: {
-		if (sign_up_clicked) {
-			page_loader.start();
-			sign_up();
-		} else page_loader.stop();
+	function start_submit() {
+		if (on_submit) return;
+		on_submit = true;
+		page_loader.start();
+		sign_up();
+	}
+
+	function end_submit() {
+		if (!on_submit) return;
+		on_submit = false;
+		page_loader.stop();
 	}
 
 	async function sign_up() {
@@ -28,7 +34,7 @@
 			confirm_password_input.value
 		);
 
-		sign_up_clicked = false;
+		end_submit();
 
 		if (res.success === false) {
 			error_message = res.message;
@@ -59,10 +65,7 @@
 	});
 </script>
 
-<form
-	class="flex flex-col gap-4 px-3 py-4"
-	on:submit|preventDefault={() => (sign_up_clicked = true)}
->
+<form class="flex flex-col gap-4 px-3 py-4" on:submit|preventDefault={start_submit}>
 	<div class="flex flex-col gap-2">
 		<input class="input" placeholder="Username" bind:this={username_input} />
 		<input class="input" placeholder="Password" type="password" bind:this={password_input} />
@@ -79,7 +82,9 @@
 	</p>
 
 	<div class="flex flex-col gap-2">
-		<button class="primary-btn shadow-a justify-center text-center" type="submit">Sign Up</button>
+		<button class="primary-btn shadow-a justify-center text-center" type="submit">
+			{on_submit ? 'Signing up...' : 'Sign Up'}
+		</button>
 
 		<button
 			class="secondary-btn shadow-a justify-center text-center"
