@@ -11,18 +11,28 @@
 	let body_input: HTMLTextAreaElement;
 
 	let submitting = false;
+	let waiting_for_sign_in = false;
 
-	$: if (submitting && $auth.signed_in) submit();
+	$: if (waiting_for_sign_in && $auth.signed_in) {
+		waiting_for_sign_in = false;
+		submit();
+	}
+
+	$: submitting ? page_loader.start() : page_loader.stop();
 
 	function handle_submit() {
 		if (submitting) return;
-		submitting = true;
-		if (!$auth.signed_in) return auth.modal.open();
-		else submit();
+
+		if (!$auth.signed_in) {
+			waiting_for_sign_in = true;
+			return auth.modal.open();
+		}
+
+		submit();
 	}
 
 	async function submit() {
-		page_loader.start();
+		submitting = true;
 
 		let data = await api.posts.create({
 			title: title_input.value,
@@ -31,13 +41,14 @@
 			access_token: $auth.user?.access_token || ''
 		});
 
-		page_loader.stop();
-
 		submitting = false;
 
-		if (!data.success) {
+		if (!data.success)
 			notification.push_notification({ item: data.message || 'Unknown error', type: 'error' });
-		} else goto('/');
+		else {
+			notification.close();
+			goto('/');
+		}
 	}
 
 	onMount(() => {
