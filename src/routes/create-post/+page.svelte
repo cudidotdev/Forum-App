@@ -4,28 +4,26 @@
 	import auth from '$lib/stores/auth';
 	import page_loader from '$lib/stores/page-loader';
 	import { onMount } from 'svelte';
+	import notification from '$lib/stores/notification';
 
 	let title_input: HTMLInputElement;
 	let topic_input: HTMLInputElement;
 	let body_input: HTMLTextAreaElement;
 
-	let on_submit = false;
+	let submitting = false;
 
-	function start_submit() {
-		if (on_submit) return;
+	$: if (submitting && $auth.signed_in) submit();
 
-		on_submit = true;
-		page_loader.start();
-		submit();
-	}
-
-	function end_submit() {
-		if (!on_submit) return;
-		on_submit = false;
-		page_loader.stop();
+	function handle_submit() {
+		if (submitting) return;
+		submitting = true;
+		if (!$auth.signed_in) return auth.modal.open();
+		else submit();
 	}
 
 	async function submit() {
+		page_loader.start();
+
 		let data = await api.posts.create({
 			title: title_input.value,
 			topics: topic_input.value.split(','),
@@ -33,8 +31,13 @@
 			access_token: $auth.user?.access_token || ''
 		});
 
-		end_submit();
-		// goto('/');
+		page_loader.stop();
+
+		submitting = false;
+
+		if (!data.success) {
+			notification.push_notification({ item: data.message || 'Unknown error', type: 'error' });
+		} else goto('/');
 	}
 
 	onMount(() => {
@@ -47,7 +50,7 @@
 
 	<form
 		class="box p-2 sm:p-4 w-full max-w-screen-sm flex flex-col gap-4"
-		on:submit|preventDefault={start_submit}
+		on:submit|preventDefault={handle_submit}
 	>
 		<input type="text" placeholder="Title" class="input" bind:this={title_input} />
 

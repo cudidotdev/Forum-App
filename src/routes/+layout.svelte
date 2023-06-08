@@ -6,6 +6,7 @@
 	import api from '$lib/api';
 	import PageLoader from '$lib/components/loaders/page-loader.svelte';
 	import page_loader from '$lib/stores/page-loader';
+	import Notification from '$lib/components/notification.svelte';
 
 	beforeNavigate(() => {
 		page_loader.start();
@@ -21,6 +22,8 @@
 	<title>A Forum application with svelkit and rust by CudiLala</title>
 	<meta name="description" content="A forum application with sveltekit and rust by CudiLala" />
 </svelte:head>
+
+<Notification />
 
 <PageLoader active={$page_loader} />
 
