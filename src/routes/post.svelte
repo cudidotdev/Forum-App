@@ -6,9 +6,9 @@
 
 	export let id: number;
 	export let title: string;
-	export let author: { first_name: string; last_name: string };
+	export let author: { id: number; name: string };
 	export let comments: number;
-	export let tags: [string, string][];
+	export let topics: [string, string][];
 	export let saved: boolean;
 	export let body: string;
 </script>
@@ -28,23 +28,23 @@
 		</div>
 
 		<div class="flex-grow hidden sm:flex justify-end flex-wrap gap-2">
-			{#each tags as tag}
-				<p class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(tag[1])}">
-					{tag[0]}
+			{#each topics as topic}
+				<p class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(topic[1])}">
+					{topic[0]}
 				</p>
 			{/each}
 		</div>
 	</div>
 
 	<div class="flex sm:hidden gap-2 flex-wrap">
-		{#each tags as tag}
-			<button class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(tag[1])}">
-				{tag[0]}
+		{#each topics as topic}
+			<button class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(topic[1])}">
+				{topic[0]}
 			</button>
 		{/each}
 	</div>
 
-	<p>{body}</p>
+	<p class="whitespace-pre">{body}</p>
 
 	<div class="flex gap-4 flex-wrap [&>*]:flex-shrink-0">
 		<div class="flex gap-2">

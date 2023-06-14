@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 import Cookies from 'js-cookie';
+import { invalidate } from '$app/navigation';
 
 function auth() {
 	const { subscribe, update } = writable<
