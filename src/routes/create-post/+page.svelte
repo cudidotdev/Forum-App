@@ -43,9 +43,24 @@
 
 		submitting = false;
 
-		if (!data.success)
+		if (!data.success) {
 			notification.push_notification({ item: data.message || 'Unknown error', type: 'error' });
-		else {
+
+			switch (data.error?.name) {
+				case 'title':
+					title_input.select();
+					title_input.focus();
+					break;
+				case 'topics':
+					topic_input.select();
+					topic_input.focus();
+					break;
+				case 'body':
+					body_input.select();
+					body_input.focus();
+					break;
+			}
+		} else {
 			notification.close();
 			goto('/');
 		}
