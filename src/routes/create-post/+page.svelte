@@ -5,27 +5,22 @@
 	import page_loader from '$lib/stores/page-loader';
 	import { onMount } from 'svelte';
 	import notification from '$lib/stores/notification';
+	import { onDestroy } from 'svelte';
 
 	let title_input: HTMLInputElement;
 	let topic_input: HTMLInputElement;
 	let body_input: HTMLTextAreaElement;
 
 	let submitting = false;
-	let waiting_for_sign_in = false;
-
-	$: if (waiting_for_sign_in && $auth.signed_in) {
-		waiting_for_sign_in = false;
-		submit();
-	}
-
 	$: submitting ? page_loader.start() : page_loader.stop();
 
 	function handle_submit() {
 		if (submitting) return;
 
 		if (!$auth.signed_in) {
-			waiting_for_sign_in = true;
-			return auth.modal.open();
+			auth.modal.open();
+			auth.events.on('sign-in', submit);
+			return;
 		}
 
 		submit();
@@ -42,6 +37,7 @@
 		});
 
 		submitting = false;
+		close_event_listeners();
 
 		if (!data.success) {
 			notification.push_notification({ item: data.message || 'Unknown error', type: 'error' });
@@ -66,8 +62,16 @@
 		}
 	}
 
+	function close_event_listeners() {
+		auth.events.off('sign-in', submit);
+	}
+
 	onMount(() => {
 		title_input?.focus();
+	});
+
+	onDestroy(() => {
+		close_event_listeners();
 	});
 </script>
 

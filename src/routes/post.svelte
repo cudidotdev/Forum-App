@@ -23,7 +23,7 @@
 		<span class="flex w-12 h-12 bg-neutral-200 flex-shrink-0 rounded-full" />
 
 		<div class="flex flex-col flex-shrink-0">
-			<span class="font-bold text-lg">Cudi Lala</span>
+			<span class="font-bold text-lg">{author.name}</span>
 			<span class="text-neutral-600 text-semibold">4 hrs ago</span>
 		</div>
 

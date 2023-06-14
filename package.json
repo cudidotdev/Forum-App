@@ -14,6 +14,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.5.0",
+		"@types/events": "^3.0.0",
 		"@types/js-cookie": "^3.0.3",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
@@ -33,6 +34,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"events": "^3.3.0",
 		"js-cookie": "^3.0.5"
 	}
 }

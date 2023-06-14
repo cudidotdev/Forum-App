@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import Cookies from 'js-cookie';
-import { invalidate } from '$app/navigation';
+import { EventEmitter, type Listener } from 'events';
 
 function auth() {
 	const { subscribe, update } = writable<
@@ -23,6 +23,20 @@ function auth() {
 		}
 	});
 
+	const events = new EventEmitter();
+
+	async function emit_user_change() {
+		events.emit('user-change');
+	}
+
+	async function emit_sign_in() {
+		events.emit('sign-in');
+	}
+
+	async function emit_sign_out() {
+		events.emit('sign-out');
+	}
+
 	return {
 		subscribe,
 
@@ -44,21 +58,33 @@ function auth() {
 
 			Cookies.set('access_token', access_token, { expires: 365, path: '/' });
 
-			update((p) => ({
-				...p,
-				signed_in: true,
-				user: { access_token, id, username }
-			}));
+			update((p) => {
+				if (p.user?.id != id) emit_user_change();
+
+				return {
+					...p,
+					signed_in: true,
+					user: { access_token, id, username }
+				};
+			});
+
+			emit_sign_in();
 		},
 
 		sign_out: () => {
 			Cookies.remove('access-token');
 
-			update((p) => ({
-				...p,
-				signed_in: false,
-				user: null
-			}));
+			update((p) => {
+				if (p.user?.id != null) emit_user_change();
+
+				return {
+					...p,
+					signed_in: false,
+					user: null
+				};
+			});
+
+			emit_sign_out();
 		},
 
 		modal: {
@@ -97,6 +123,16 @@ function auth() {
 						on_sign_in: t === 'sign-in'
 					}
 				}))
+		},
+
+		events: {
+			on: (event: 'sign-in' | 'sign-out' | 'user-change', listener: Listener) => {
+				events.on(event, listener);
+			},
+
+			off: (event: 'sign-in' | 'sign-out' | 'user-change', listener: Listener) => {
+				events.off(event, listener);
+			}
 		}
 	};
 }

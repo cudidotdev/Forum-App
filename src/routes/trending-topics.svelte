@@ -17,11 +17,9 @@
 
 	<div class="mt-4 flex flex-col gap-2">
 		{#each tags as tag}
-			<button
-				class="px-4 py-1 text-left rounded-lg border font-semibold {color_tag_map.get(tag[1])}"
-			>
+			<span class="px-4 py-1 text-left rounded-lg border font-semibold {color_tag_map.get(tag[1])}">
 				{tag[0]}
-			</button>
+			</span>
 		{/each}
 	</div>
 </div>
