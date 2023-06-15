@@ -5,8 +5,6 @@ import type { PageLoad } from './$types';
 export const load = (async ({ params, data, depends }) => {
 	const res = await api.posts.fetch_by_id({ id: +params.id, access_token: data.access_token });
 
-	depends('posts[id]:post');
-
 	if (!res.success) {
 		throw error(404, {
 			message: res.error.message || `Error fetching post with id ${params.id}`
@@ -20,5 +18,8 @@ export const load = (async ({ params, data, depends }) => {
 			message: c_res.error.message || `Error fetching comments with post id ${params.id}`
 		});
 	}
+
+	depends('app:user');
+
 	return { ...res.data, comments: c_res.data };
 }) satisfies PageLoad;

@@ -4,23 +4,8 @@
 	import Posts from '../posts.svelte';
 	import Footer from '../footer.svelte';
 	import type { PageData } from './$types';
-	import auth from '$lib/stores/auth';
-	import { onMount, onDestroy } from 'svelte';
-	import { invalidate } from '$app/navigation';
 
 	export let data: PageData;
-
-	function invalidate_data() {
-		invalidate('home:posts');
-	}
-
-	onMount(() => {
-		auth.events.on('user-change', invalidate_data);
-	});
-
-	onDestroy(() => {
-		auth.events.off('user-change', invalidate_data);
-	});
 </script>
 
 <div class="flex-grow flex flex-col gap-8">

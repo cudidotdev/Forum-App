@@ -9,33 +9,26 @@
 	import Comments from './comments.svelte';
 
 	export let data: PageData;
-	let id = data.id;
-	let title = data.title;
-	let topics = data.topics;
-	let body = data.body;
-	let saved = data.saved;
-	let author = data.author;
-	let comments = data.comments;
 
-	$: comments_n = count_replies(comments);
+	$: comments_n = count_replies(data.comments);
 
 	let comment_input: HTMLTextAreaElement;
 	let comment_section: Comments;
 </script>
 
 <div class="grow w-full box p-4 sm:p-8 flex flex-col gap-4">
-	<h4 class="text-2xl sm:text-3xl font-title font-semibold">{title}</h4>
+	<h4 class="text-2xl sm:text-3xl font-title font-semibold">{data.title}</h4>
 
 	<div class="flex items-center gap-4">
 		<span class="flex w-12 h-12 bg-neutral-100 flex-shrink-0 rounded-full" />
 
 		<div class="flex flex-col flex-shrink-0">
-			<span class="font-bold text-lg">{author.name}</span>
+			<span class="font-bold text-lg">{data.author.name}</span>
 			<span class="text-neutral-600 text-semibold">4 hrs ago</span>
 		</div>
 
 		<div class="flex-grow hidden sm:flex justify-end flex-wrap gap-2">
-			{#each topics as topic}
+			{#each data.topics as topic}
 				<p class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(topic[1])}">
 					{topic[0]}
 				</p>
@@ -44,14 +37,14 @@
 	</div>
 
 	<div class="flex sm:hidden gap-2 flex-wrap">
-		{#each topics as topic}
+		{#each data.topics as topic}
 			<button class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(topic[1])}">
 				{topic[0]}
 			</button>
 		{/each}
 	</div>
 
-	<p>{body}</p>
+	<p>{data.body}</p>
 
 	<div class="flex gap-4 flex-wrap [&>*]:flex-shrink-0">
 		<div class="flex gap-2">
@@ -63,20 +56,19 @@
 			</span>
 		</div>
 
-		<div class="flex gap-2 {saved ? 'text-brand-color' : ''}">
+		<div class="flex gap-2 {data.saved ? 'text-brand-color' : ''}">
 			<span class="w-6 h-6 flex">
-				{#if !saved}
+				{#if !data.saved}
 					<BookmarkIcon />
 				{:else}
 					<BookmarkSolidIcon />
 				{/if}
 			</span>
-			<span class="font-semibold">{saved ? 'Saved' : 'Save'}</span>
+			<span class="font-semibold">{data.saved ? 'Saved' : 'Save'}</span>
 		</div>
 	</div>
 
 	<div class="my-4">
-		<p><span>Comment as </span> <span class="text-link-blue">@cudilala</span></p>
 		<div class="flex flex-col gap-2">
 			<textarea
 				bind:this={comment_input}
@@ -92,5 +84,5 @@
 
 	<CommentSorter />
 
-	<Comments parent_id={undefined} bind:this={comment_section} bind:comments />
+	<Comments parent_id={undefined} bind:this={comment_section} bind:comments={data.comments} />
 </div>

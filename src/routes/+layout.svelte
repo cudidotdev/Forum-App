@@ -2,11 +2,25 @@
 	import '../app.css';
 	import AuthModal from '$lib/components/auth/modal.svelte';
 	import Header from './header.svelte';
-	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import { afterNavigate, beforeNavigate, invalidate } from '$app/navigation';
 	import api from '$lib/api';
 	import PageLoader from '$lib/components/loaders/page-loader.svelte';
 	import page_loader from '$lib/stores/page-loader';
 	import Notification from '$lib/components/notification.svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import auth from '$lib/stores/auth';
+
+	function invalidate_data() {
+		invalidate('app:user');
+	}
+
+	onMount(() => {
+		auth.events.on('user-change', invalidate_data);
+	});
+
+	onDestroy(() => {
+		auth.events.off('user-change', invalidate_data);
+	});
 
 	beforeNavigate(() => {
 		page_loader.start();

@@ -10,7 +10,7 @@ export const load = (async ({ data, depends, url }) => {
 
 	const res = await api.posts.fetch({ sort, access_token: data.access_token });
 
-	depends('home:posts');
+	depends('app:user');
 
 	if (!res.success) return { posts: [] };
 	else return { posts: res.data };

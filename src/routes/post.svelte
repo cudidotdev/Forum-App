@@ -11,6 +11,8 @@
 	export let topics: [string, string][];
 	export let saved: boolean;
 	export let body: string;
+
+	function save_post() {}
 </script>
 
 <a
@@ -62,7 +64,9 @@
 					<BookmarkSolidIcon />
 				{/if}
 			</span>
-			<span class="font-semibold">{saved ? 'Saved' : 'Save'}</span>
+			<button class="font-semibold" on:click|stopPropagation={save_post}
+				>{saved ? 'Saved' : 'Save'}</button
+			>
 		</div>
 	</div>
 </a>

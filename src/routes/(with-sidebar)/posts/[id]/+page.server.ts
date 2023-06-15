@@ -1,7 +1,7 @@
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ cookies, depends }) => {
-	depends('home:post');
+	depends('app:user');
 
 	return {
 		access_token: cookies.get('access_token')
