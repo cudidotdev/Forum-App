@@ -5,7 +5,7 @@
 		['Education', 'blue'],
 		['Accouting', 'red'],
 		['Making Money', 'green'],
-		['E-commerce', 'violet'],
+		['E-commerce', 'blue'],
 		['Marketing', 'purple'],
 		['Forums', 'yellow'],
 		['Rust', 'red']

@@ -1,8 +1,14 @@
 import api from '$lib/api';
 import type { PageLoad } from './$types';
 
-export const load = (async ({ data, depends, parent }) => {
-	const res = await api.posts.fetch({ access_token: data.access_token });
+export const load = (async ({ data, depends, url }) => {
+	const sort_str = url.searchParams.get('sort')?.toString() || '';
+
+	const sort = (
+		['highest', 'lowest', 'latest', 'oldest']?.includes(sort_str) ? sort_str : 'highest'
+	) as 'highest' | 'lowest' | 'latest' | 'oldest';
+
+	const res = await api.posts.fetch({ sort, access_token: data.access_token });
 
 	depends('home:posts');
 

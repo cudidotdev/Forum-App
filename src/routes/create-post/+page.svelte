@@ -58,7 +58,7 @@
 			}
 		} else {
 			notification.close();
-			goto('/');
+			goto('/?sort=latest');
 		}
 	}
 
