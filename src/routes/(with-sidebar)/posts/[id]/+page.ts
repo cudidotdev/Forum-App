@@ -1,61 +1,24 @@
+import api from '$lib/api';
+import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
-import type { post_details } from './types';
 
-export const load = (() => {
-	const data: post_details = {
-		id: 1,
-		title: 'What makes a good font for bloggers?',
-		author: { first_name: 'Cudi', last_name: 'Lala' },
-		body: 'Designed and coded my first web project in 1998. \
-             Now I am heavily involved in UX Design, Webflow, Blockchain Technology, and NFT Collections. \
-             Designed and coded my first web project in 1998. \
-             Now I am heavily involved in UX Design, Webflow, Blockchain Technology, and NFT Collections.',
-		saved: false,
-		tags: [
-			['Making Money', 'green'],
-			['Accounting', 'red'],
-			['Education', 'blue']
-		],
-		comments: [
-			{
-				id: 1,
-				body: 'Designed and coded my first web project in 1998. \
-             Now I am heavily involved in UX Design, Webflow, Blockchain Technology, and NFT Collections. \
-             Designed and coded my first web project in 1998. \
-             Now I am heavily involved in UX Design, Webflow, Blockchain Technology, and NFT Collections.',
-				author: {
-					first_name: 'Cudi',
-					last_name: 'Lala'
-				},
-				replies: [
-					{
-						id: 3,
-						body: 'Designed and coded my first web project in 1998. \
-             Now I am heavily involved in UX Design, Webflow, Blockchain Technology, and NFT Collections. \
-             Designed and coded my first web project in 1998. \
-             Now I am heavily involved in UX Design, Webflow, Blockchain Technology, and NFT Collections.',
-						author: {
-							first_name: 'Cudi',
-							last_name: 'Lala'
-						},
-						replies: []
-					}
-				]
-			},
-			{
-				id: 2,
-				body: 'Designed and coded my first web project in 1998. \
-             Now I am heavily involved in UX Design, Webflow, Blockchain Technology, and NFT Collections. \
-             Designed and coded my first web project in 1998. \
-             Now I am heavily involved in UX Design, Webflow, Blockchain Technology, and NFT Collections.',
-				author: {
-					first_name: 'Cudi',
-					last_name: 'Lala'
-				},
-				replies: []
-			}
-		]
-	};
+export const load = (async ({ params, data, depends }) => {
+	const res = await api.posts.fetch_by_id({ id: +params.id, access_token: data.access_token });
 
-	return data;
+	depends('posts[id]:post');
+
+	if (!res.success) {
+		throw error(404, {
+			message: res.error.message || `Error fetching post with id ${params.id}`
+		});
+	}
+
+	const c_res = await api.posts.fetch_comments({ post_id: +params.id, sort: 'highest' });
+
+	if (!c_res.success) {
+		throw error(500, {
+			message: c_res.error.message || `Error fetching comments with post id ${params.id}`
+		});
+	}
+	return { ...res.data, comments: c_res.data };
 }) satisfies PageLoad;

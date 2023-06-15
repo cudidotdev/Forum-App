@@ -1,11 +1,12 @@
 <script lang="ts">
+	import type { reply } from '$lib/api/posts';
 	import { active_reply } from '$lib/stores/active-reply';
+	import auth from '$lib/stores/auth';
 	import { partial_id } from '$lib/stores/partial-id';
 	import Comment from './comment.svelte';
 	import ReplyInput from './reply-input.svelte';
-	import type { comment } from './types';
 
-	export let comments: comment[];
+	export let comments: reply[];
 
 	export let parent_id: number | undefined;
 
@@ -21,14 +22,16 @@
 				id,
 				body: comment_input.value.trim(),
 				replies: [],
-				author: { first_name: 'Cudi', last_name: 'Lala' }
+				author: { name: $auth.user?.username || '', id: $auth.user?.id || 0 },
+				created_at: new Date().toDateString()
 			});
 		else
 			comments.push({
 				id,
 				body: comment_input.value.trim(),
 				replies: [],
-				author: { first_name: 'Cudi', last_name: 'Lala' }
+				author: { name: $auth.user?.username || '', id: $auth.user?.id || 0 },
+				created_at: new Date().toDateString()
 			});
 
 		comments = comments;

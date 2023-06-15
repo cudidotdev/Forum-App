@@ -9,21 +9,13 @@
 	import Comments from './comments.svelte';
 
 	export let data: PageData;
-	let id: number;
-	let title: string;
-	let tags: [string, string][];
-	let body: string;
-	let saved: boolean;
-	let comments: typeof data.comments;
-
-	$: {
-		id = data.id;
-		title = data.title;
-		tags = data.tags;
-		body = data.body;
-		saved = data.saved;
-		comments = data.comments;
-	}
+	let id = data.id;
+	let title = data.title;
+	let topics = data.topics;
+	let body = data.body;
+	let saved = data.saved;
+	let author = data.author;
+	let comments = data.comments;
 
 	$: comments_n = count_replies(comments);
 
@@ -31,30 +23,30 @@
 	let comment_section: Comments;
 </script>
 
-<div class="box p-4 sm:p-8 flex flex-col gap-4">
+<div class="grow w-full box p-4 sm:p-8 flex flex-col gap-4">
 	<h4 class="text-2xl sm:text-3xl font-title font-semibold">{title}</h4>
 
 	<div class="flex items-center gap-4">
 		<span class="flex w-12 h-12 bg-neutral-100 flex-shrink-0 rounded-full" />
 
 		<div class="flex flex-col flex-shrink-0">
-			<span class="font-bold text-lg">Cudi Lala</span>
+			<span class="font-bold text-lg">{author.name}</span>
 			<span class="text-neutral-600 text-semibold">4 hrs ago</span>
 		</div>
 
 		<div class="flex-grow hidden sm:flex justify-end flex-wrap gap-2">
-			{#each tags as tag}
-				<p class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(tag[1])}">
-					{tag[0]}
+			{#each topics as topic}
+				<p class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(topic[1])}">
+					{topic[0]}
 				</p>
 			{/each}
 		</div>
 	</div>
 
 	<div class="flex sm:hidden gap-2 flex-wrap">
-		{#each tags as tag}
-			<button class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(tag[1])}">
-				{tag[0]}
+		{#each topics as topic}
+			<button class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(topic[1])}">
+				{topic[0]}
 			</button>
 		{/each}
 	</div>
