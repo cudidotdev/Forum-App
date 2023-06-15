@@ -7,7 +7,7 @@ export const load = (async ({ params, data, depends }) => {
 
 	if (!res.success) {
 		throw error(404, {
-			message: res.error.message || `Error fetching post with id ${params.id}`
+			message: res.error?.message || `Error fetching post with id ${params.id}`
 		});
 	}
 
@@ -15,7 +15,7 @@ export const load = (async ({ params, data, depends }) => {
 
 	if (!c_res.success) {
 		throw error(500, {
-			message: c_res.error.message || `Error fetching comments with post id ${params.id}`
+			message: c_res.error?.message || `Error fetching comments with post id ${params.id}`
 		});
 	}
 

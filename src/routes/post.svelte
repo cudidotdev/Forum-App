@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { color_tag_map } from '$lib/constants/colors';
 	import BookmarkIcon from '$lib/icons/bookmark-icon.svelte';
 	import BookmarkSolidIcon from '$lib/icons/bookmark-solid-icon.svelte';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
+	import auth from '$lib/stores/auth';
 
 	export let id: number;
 	export let title: string;
@@ -11,13 +13,29 @@
 	export let topics: [string, string][];
 	export let saved: boolean;
 	export let body: string;
+	export let created_at: string;
 
-	function save_post() {}
+	function handle_save_click() {
+		if (!$auth.signed_in) {
+			auth.modal.open();
+			auth.events.on('sign-in', exec_save_click);
+			return;
+		}
+
+		exec_save_click();
+	}
+
+	function exec_save_click() {
+		saved = !saved;
+	}
 </script>
 
 <a
-	href="/posts/{id}"
 	class="box p-4 sm:p-8 flex flex-col gap-4 hover:border-brand-color-light transition"
+	href="/posts/{id}"
+	on:click|preventDefault={() => {
+		goto(`/posts/${id}`);
+	}}
 >
 	<h4 class="text-2xl sm:text-3xl font-title font-semibold">{title}</h4>
 
@@ -56,7 +74,10 @@
 			<span class="font-semibold"> {comments} Comment{comments !== 1 ? 's' : ''} </span>
 		</div>
 
-		<div class="flex gap-2 {saved ? 'text-brand-color' : ''}">
+		<button
+			class="flex gap-2 {saved ? 'text-brand-color' : ''}"
+			on:click|preventDefault|stopPropagation={handle_save_click}
+		>
 			<span class="w-6 h-6 flex">
 				{#if !saved}
 					<BookmarkIcon />
@@ -64,9 +85,9 @@
 					<BookmarkSolidIcon />
 				{/if}
 			</span>
-			<button class="font-semibold" on:click|stopPropagation={save_post}
-				>{saved ? 'Saved' : 'Save'}</button
-			>
-		</div>
+			<span class="font-semibold">
+				{saved ? 'Saved' : 'Save'}
+			</span>
+		</button>
 	</div>
 </a>

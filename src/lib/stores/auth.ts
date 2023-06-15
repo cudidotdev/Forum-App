@@ -97,23 +97,30 @@ function auth() {
 					}
 				})),
 
-			close: () =>
+			close: () => {
+				events.removeAllListeners('sign-in');
+
 				update((p) => ({
 					...p,
 					modal: {
 						open: false,
 						on_sign_in: p.modal.on_sign_in
 					}
-				})),
+				}));
+			},
 
 			toggle: (on_sign_in = true) =>
-				update((p) => ({
-					...p,
-					modal: {
-						open: !p.modal.open,
-						on_sign_in
-					}
-				})),
+				update((p) => {
+					if (p.modal.open) events.removeAllListeners('sign-in');
+
+					return {
+						...p,
+						modal: {
+							open: !p.modal.open,
+							on_sign_in
+						}
+					};
+				}),
 
 			switch_tab: (t: 'sign-in' | 'sign-up') =>
 				update((p) => ({
