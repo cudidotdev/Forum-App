@@ -4,6 +4,7 @@
 	import BookmarkSolidIcon from '$lib/icons/bookmark-solid-icon.svelte';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
 	import { count_replies } from '$lib/utils';
+	import SaveButton from '../../../save-button.svelte';
 	import type { PageData } from './$types';
 	import CommentSorter from './comment-sorter.svelte';
 	import Comments from './comments.svelte';
@@ -56,16 +57,7 @@
 			</span>
 		</div>
 
-		<div class="flex gap-2 {data.saved ? 'text-brand-color' : ''}">
-			<span class="w-6 h-6 flex">
-				{#if !data.saved}
-					<BookmarkIcon />
-				{:else}
-					<BookmarkSolidIcon />
-				{/if}
-			</span>
-			<span class="font-semibold">{data.saved ? 'Saved' : 'Save'}</span>
-		</div>
+		<SaveButton bind:saved={data.saved} post_id={data.id} />
 	</div>
 
 	<div class="my-4">
