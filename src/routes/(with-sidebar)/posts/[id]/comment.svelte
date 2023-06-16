@@ -6,6 +6,7 @@
 	import Comments from './comments.svelte';
 
 	export let comment: reply;
+	export let post_id: number;
 
 	$: child_reply_box_visible = $active_reply === comment.id;
 
@@ -29,7 +30,11 @@
 	<div class="flex flex-col gap-3 w-full flex-grow">
 		<p class="whitespace-pre-wrap">{comment.body}</p>
 
-		<button class="flex gap-2 flex-shrink-0" on:click={() => active_reply.activate(comment.id)}>
+		<button
+			class="flex gap-2 flex-shrink-0 disabled:opacity-60"
+			on:click={() => active_reply.activate(comment.id)}
+			disabled={Math.sign(comment.id) === -1}
+		>
 			<span class="w-6 h-6 flex">
 				<CommentIcon />
 			</span>
@@ -45,6 +50,7 @@
 
 			<div class="w-full flex-grow">
 				<Comments
+					{post_id}
 					bind:comments={comment.replies}
 					bind:reply_box_visible={child_reply_box_visible}
 					parent_id={comment.id}

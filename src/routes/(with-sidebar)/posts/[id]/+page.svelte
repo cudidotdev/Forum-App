@@ -76,5 +76,10 @@
 
 	<CommentSorter />
 
-	<Comments parent_id={undefined} bind:this={comment_section} bind:comments={data.comments} />
+	<Comments
+		post_id={data.id}
+		parent_id={undefined}
+		bind:this={comment_section}
+		bind:comments={data.comments}
+	/>
 </div>

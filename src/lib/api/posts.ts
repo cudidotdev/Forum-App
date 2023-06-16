@@ -1,7 +1,7 @@
 import api from '.';
 
 const posts = {
-	async create({
+	create({
 		title,
 		topics,
 		body,
@@ -29,7 +29,7 @@ const posts = {
 		});
 	},
 
-	async fetch({
+	fetch({
 		page = 1,
 		limit = 20,
 		sort = 'highest',
@@ -56,7 +56,7 @@ const posts = {
 		});
 	},
 
-	async fetch_by_id({
+	fetch_by_id({
 		id,
 		access_token
 	}: {
@@ -79,7 +79,7 @@ const posts = {
 		});
 	},
 
-	async fetch_comments({
+	fetch_comments({
 		post_id,
 		sort = 'highest'
 	}: {
@@ -98,7 +98,7 @@ const posts = {
 		});
 	},
 
-	async save({
+	save({
 		post_id,
 		access_token
 	}: {
@@ -120,7 +120,7 @@ const posts = {
 		});
 	},
 
-	async unsave({
+	unsave({
 		post_id,
 		access_token
 	}: {
@@ -132,6 +132,34 @@ const posts = {
 				method: 'POST',
 				headers: {
 					Authorization: `Bearer ${access_token}`
+				}
+			})
+				.then((r) => r.json())
+				.then(resolve)
+				.catch((e) =>
+					resolve({ success: false, message: e?.message || 'Unknown Error', error: e })
+				);
+		});
+	},
+
+	add_comment({
+		post_id,
+		body,
+		parent_id,
+		access_token
+	}: {
+		post_id: number;
+		body: string;
+		parent_id?: number;
+		access_token: string | undefined;
+	}): Promise<create_post_response> {
+		return new Promise((resolve) => {
+			fetch(api.url() + `/posts/${post_id}/comments`, {
+				method: 'POST',
+				body: JSON.stringify({ body, comment_id: parent_id || null }),
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+					'Content-Type': 'application/json'
 				}
 			})
 				.then((r) => r.json())
