@@ -88,9 +88,50 @@ const posts = {
 	}): Promise<fetch_comments_response> {
 		return new Promise((resolve) => {
 			fetch(api.url() + `/posts/${post_id}/comments?sort=${sort}`, {
-				method: 'GET',
+				method: 'GET'
+			})
+				.then((r) => r.json())
+				.then(resolve)
+				.catch((e) =>
+					resolve({ success: false, message: e?.message || 'Unknown Error', error: e })
+				);
+		});
+	},
+
+	async save({
+		post_id,
+		access_token
+	}: {
+		post_id: number;
+		access_token: string;
+	}): Promise<save_post_response> {
+		return new Promise((resolve) => {
+			fetch(api.url() + `/posts/${post_id}/save`, {
+				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json'
+					Authorization: `Bearer ${access_token}`
+				}
+			})
+				.then((r) => r.json())
+				.then(resolve)
+				.catch((e) =>
+					resolve({ success: false, message: e?.message || 'Unknown Error', error: e })
+				);
+		});
+	},
+
+	async unsave({
+		post_id,
+		access_token
+	}: {
+		post_id: number;
+		access_token: string;
+	}): Promise<save_post_response> {
+		return new Promise((resolve) => {
+			fetch(api.url() + `/posts/${post_id}/unsave`, {
+				method: 'POST',
+				headers: {
+					Authorization: `Bearer ${access_token}`
 				}
 			})
 				.then((r) => r.json())
@@ -102,18 +143,11 @@ const posts = {
 	}
 };
 
-type create_post_response =
-	| {
-			success: false;
-			message?: string;
-			error?: { name?: string; message?: string };
-	  }
-	| {
-			success: true;
-			data: {
-				id: number;
-			};
-	  };
+type error = {
+	success: false;
+	message?: string;
+	error?: { name?: string; message?: string };
+};
 
 type post = {
 	id: number;
@@ -141,37 +175,36 @@ export type reply = {
 	replies: reply[];
 };
 
-type fetch_posts_response =
+type create_post_response =
+	| error
 	| {
-			success: false;
-			message?: string;
-			error?: { name?: string; message?: string };
-	  }
+			success: true;
+			data: {
+				id: number;
+			};
+	  };
+
+type fetch_posts_response =
+	| error
 	| {
 			success: true;
 			data: post[];
 	  };
 
 type fetch_post_response =
-	| {
-			success: false;
-			message?: string;
-			error: { name?: string; message?: string; status?: number };
-	  }
+	| error
 	| {
 			success: true;
 			data: post;
 	  };
 
 type fetch_comments_response =
-	| {
-			success: false;
-			message?: string;
-			error: { name?: string; message?: string; status?: number };
-	  }
+	| error
 	| {
 			success: true;
 			data: reply[];
 	  };
+
+type save_post_response = error | { success: true };
 
 export default posts;

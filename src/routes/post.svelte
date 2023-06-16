@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import api from '$lib/api';
 	import { color_tag_map } from '$lib/constants/colors';
 	import BookmarkIcon from '$lib/icons/bookmark-icon.svelte';
 	import BookmarkSolidIcon from '$lib/icons/bookmark-solid-icon.svelte';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
 	import auth from '$lib/stores/auth';
+	import { onDestroy } from 'svelte';
 
 	export let id: number;
 	export let title: string;
@@ -27,7 +29,16 @@
 
 	function exec_save_click() {
 		saved = !saved;
+
+		if (saved) api.posts.save({ post_id: id, access_token: $auth.user?.access_token || '' });
+		else api.posts.unsave({ post_id: id, access_token: $auth.user?.access_token || '' });
+
+		auth.events.off('sign-in', exec_save_click);
 	}
+
+	onDestroy(() => {
+		auth.events.off('sign-in', exec_save_click);
+	});
 </script>
 
 <a
