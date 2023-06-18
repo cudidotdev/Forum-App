@@ -48,6 +48,4 @@
 			<span>Settings</span>
 		</div>
 	</div>
-
-	<Posts />
 </div>
