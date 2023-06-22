@@ -28,7 +28,9 @@
 			{#if !$auth.signed_in}
 				<button class="primary-btn" type="button" on:click={toggle_sign_in}>Sign in</button>
 			{:else}
-				<span class="flex w-10 h-10 p-0.5 bg-neutral-200 rounded-full" />
+				<a href="/users/{$auth.user.id}">
+					<span class="flex w-10 h-10 p-0.5 bg-neutral-200 rounded-full" />
+				</a>
 			{/if}
 		</div>
 	</div>

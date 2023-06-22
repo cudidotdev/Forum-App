@@ -1,7 +1,8 @@
 import api from '$lib/api';
 import type { PageLoad } from './$types';
 
-export const load = (async ({ data, depends, url }) => {
+export const load = (async ({ parent, depends, url }) => {
+	const data = await parent();
 	const sort_str = url.searchParams.get('sort')?.toString() || '';
 
 	const sort = (

@@ -1,4 +1,4 @@
-import api from '.';
+import api, { type error } from '.';
 
 const posts = {
 	create({
@@ -168,13 +168,30 @@ const posts = {
 					resolve({ success: false, message: e?.message || 'Unknown Error', error: e })
 				);
 		});
-	}
-};
+	},
 
-type error = {
-	success: false;
-	message?: string;
-	error?: { name?: string; message?: string };
+	fetch_post_created_by_user({
+		user_id,
+		access_token
+	}: {
+		user_id: number;
+		access_token?: string;
+	}): Promise<fetch_posts_response> {
+		return new Promise((resolve) => {
+			fetch(api.url() + `/users/${user_id}/posts`, {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+					'Content-Type': 'application/json'
+				}
+			})
+				.then((r) => r.json())
+				.then(resolve)
+				.catch((e) =>
+					resolve({ success: false, message: e?.message || 'Unknown Error', error: e })
+				);
+		});
+	}
 };
 
 type post = {
