@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Posts from '../../posts.svelte';
+	import Posts from '../../../posts.svelte';
 	import type { PageData } from './$types';
 	import auth from '$lib/stores/auth';
 
@@ -39,8 +39,8 @@
 		<div
 			class="box flex justify-start gap-8 px-4 md:px-8 py-2 w-full font-title font-semibold text-lg"
 		>
-			<a href="/users/{data.user.id}" class="text-brand-color">Posts</a>
-			<a href="/users/{data.user.id}/saves">Saved</a>
+			<a href="/users/{data.user.id}">Posts</a>
+			<a href="/users/{data.user.id}/saves" class="text-brand-color">Saved</a>
 		</div>
 	</div>
 

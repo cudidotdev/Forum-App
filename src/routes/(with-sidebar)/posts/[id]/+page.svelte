@@ -21,10 +21,12 @@
 	<h4 class="text-2xl sm:text-3xl font-title font-semibold">{data.title}</h4>
 
 	<div class="flex items-center gap-4">
-		<span class="flex w-12 h-12 bg-neutral-100 flex-shrink-0 rounded-full" />
+		<a href="/users/{data.author.id}">
+			<span class="flex w-12 h-12 bg-neutral-100 flex-shrink-0 rounded-full" />
+		</a>
 
 		<div class="flex flex-col flex-shrink-0">
-			<span class="font-bold text-lg">{data.author.name}</span>
+			<a href="/users/{data.author.id}" class="font-bold text-lg">{data.author.name}</a>
 			<span class="text-neutral-600 text-semibold">4 hrs ago</span>
 		</div>
 

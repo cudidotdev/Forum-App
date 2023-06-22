@@ -14,10 +14,14 @@
 </script>
 
 <div class="flex gap-3 items-center">
-	<span class="flex w-12 h-12 rounded-full flex-shrink-0 bg-neutral-100" />
-	<span class="font-bold text-lg">
+	<a href="/users/{comment.author.id}">
+		<span class="flex w-12 h-12 rounded-full flex-shrink-0 bg-neutral-100" />
+	</a>
+
+	<a href="/users/{comment.author.id}" class="font-bold text-lg">
 		{comment.author.name}
-	</span>
+	</a>
+
 	<span class="font-semibold hidden sm:inline text-neutral-600">4 hrs ago</span>
 	<span class="font-semibold inline sm:hidden text-neutral-600">4 h</span>
 </div>

@@ -191,6 +191,29 @@ const posts = {
 					resolve({ success: false, message: e?.message || 'Unknown Error', error: e })
 				);
 		});
+	},
+
+	fetch_post_saved_by_user({
+		user_id,
+		access_token
+	}: {
+		user_id: number;
+		access_token?: string;
+	}): Promise<fetch_posts_response> {
+		return new Promise((resolve) => {
+			fetch(api.url() + `/users/${user_id}/saves`, {
+				method: 'GET',
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+					'Content-Type': 'application/json'
+				}
+			})
+				.then((r) => r.json())
+				.then(resolve)
+				.catch((e) =>
+					resolve({ success: false, message: e?.message || 'Unknown Error', error: e })
+				);
+		});
 	}
 };
 
