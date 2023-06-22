@@ -1,8 +1,8 @@
 <script lang="ts">
+	import api from '$lib/api';
 	import { color_tag_map } from '$lib/constants/colors';
-	import BookmarkIcon from '$lib/icons/bookmark-icon.svelte';
-	import BookmarkSolidIcon from '$lib/icons/bookmark-solid-icon.svelte';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
+	import page_loader from '$lib/stores/page-loader';
 	import { count_replies } from '$lib/utils';
 	import SaveButton from '../../../save-button.svelte';
 	import type { PageData } from './$types';
@@ -15,6 +15,37 @@
 
 	let comment_input: HTMLTextAreaElement;
 	let comment_section: Comments;
+	let sort = 'highest';
+
+	async function sort_by_latest() {
+		sort = 'latest';
+
+		page_loader.start();
+
+		const res = await api.posts.fetch_comments({ post_id: data.id, sort: 'latest' });
+
+		page_loader.stop();
+
+		if (res.success) {
+			data.comments = res.data;
+			data = data;
+		}
+	}
+
+	async function sort_by_highest() {
+		sort = 'highest';
+
+		page_loader.start();
+
+		const res = await api.posts.fetch_comments({ post_id: data.id, sort: 'highest' });
+
+		page_loader.stop();
+
+		if (res.success) {
+			data.comments = res.data;
+			data = data;
+		}
+	}
 </script>
 
 <div class="grow w-full box p-4 sm:p-8 flex flex-col gap-4">
@@ -76,7 +107,7 @@
 		</div>
 	</div>
 
-	<CommentSorter />
+	<CommentSorter {sort_by_highest} {sort_by_latest} {sort} />
 
 	<Comments
 		post_id={data.id}

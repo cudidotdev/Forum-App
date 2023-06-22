@@ -11,7 +11,7 @@
 		<a
 			href="/?sort=latest"
 			class="flex-grow-0 flex-shrink-0 font-bold text-lg py-1 px-2 flex gap-2 w-fit
-      {sort === 'latest' ? 'box !bg-neutral-50' : ''}"
+      {sort === 'latest' ? 'box !bg-neutral-50' : 'border border-transparent'}"
 		>
 			<span class="flex w-6 h-6">
 				<BalloonIcon />
@@ -22,7 +22,7 @@
 		<a
 			href="/?sort=highest"
 			class="w-fit font-bold text-lg py-1 px-2 flex gap-2 flex-grow-0 flex-shrink-0
-      {sort === 'highest' ? 'box !bg-neutral-50' : ''}"
+      {sort === 'highest' ? 'box !bg-neutral-50' : 'border border-transparent'}"
 		>
 			<span class="flex w-6 h-6">
 				<RocketIcon />
