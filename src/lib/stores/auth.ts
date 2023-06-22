@@ -72,7 +72,7 @@ function auth() {
 		},
 
 		sign_out: () => {
-			Cookies.remove('access-token');
+			Cookies.remove('access_token');
 
 			update((p) => {
 				if (p.user?.id != null) emit_user_change();

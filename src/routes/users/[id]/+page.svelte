@@ -25,7 +25,7 @@
 
 			{#if $auth.user && $auth.user.id === data.user.id}
 				<div class="grow flex justify-end items-start py-4 md:py-8 md:px-8">
-					<button class="primary-btn">Sign Out</button>
+					<button class="primary-btn" on:click={auth.sign_out}>Sign Out</button>
 				</div>
 			{/if}
 		</div>

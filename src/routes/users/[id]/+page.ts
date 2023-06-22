@@ -1,7 +1,7 @@
 import api from '$lib/api';
 import type { PageLoad } from './$types';
 
-export const load = (async ({ params, parent }) => {
+export const load = (async ({ params, parent, depends }) => {
 	const data = await parent();
 	const user_id = +params.id;
 
@@ -13,6 +13,8 @@ export const load = (async ({ params, parent }) => {
 	if (!res.success) {
 		throw (res.error?.status || 500, { message: res.error?.message || 'Unknown Error' });
 	}
+
+	depends('app:user');
 
 	return {
 		posts: res.data
