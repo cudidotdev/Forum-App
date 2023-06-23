@@ -14,7 +14,7 @@
 </script>
 
 <div
-	class="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 transition duration-300 sm:hidden {active
+	class="fixed top-0 left-0 w-screen h-full bg-black bg-opacity-50 transition duration-300 sm:hidden {active
 		? 'opacity-100 z-40'
 		: 'opacity-0 -z-40'} {visible ? 'visible sm:invisible' : 'invisible'}"
 	bind:this={container}
