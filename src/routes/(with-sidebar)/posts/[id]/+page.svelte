@@ -1,6 +1,6 @@
 <script lang="ts">
 	import api from '$lib/api';
-	import { color_tag_map } from '$lib/constants/colors';
+	import { color_tag_map, text_color_tag_map } from '$lib/constants/colors';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
 	import page_loader from '$lib/stores/page-loader';
 	import { count_replies } from '$lib/utils';
@@ -48,6 +48,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>{data.title}</title>
+</svelte:head>
+
 <div class="grow w-full box p-4 sm:p-8 flex flex-col gap-4">
 	<h4 class="text-2xl sm:text-3xl font-title font-semibold">{data.title}</h4>
 
@@ -67,14 +71,14 @@
 			<a href="/users/{data.author.id}" class="font-bold text-lg">{data.author.name}</a>
 			<span class="text-neutral-600 text-semibold">4 hrs ago</span>
 		</div>
+	</div>
 
-		<div class="flex-grow hidden sm:flex justify-end flex-wrap gap-2">
-			{#each data.hashtags as hashtag}
-				<p class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(hashtag[1])}">
-					{hashtag[0]}
-				</p>
-			{/each}
-		</div>
+	<div class="flex-grow hidden sm:flex flex-wrap gap-2">
+		{#each data.hashtags as hashtag}
+			<p class="p-1 rounded-lg font-semibold {text_color_tag_map.get(hashtag[1])}">
+				#{hashtag[0]}
+			</p>
+		{/each}
 	</div>
 
 	<div class="flex sm:hidden gap-2 flex-wrap">
