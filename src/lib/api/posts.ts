@@ -217,7 +217,7 @@ const posts = {
 	}
 };
 
-type post = {
+export type post = {
 	id: number;
 	author: {
 		name: string;
