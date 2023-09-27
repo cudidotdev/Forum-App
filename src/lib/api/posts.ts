@@ -228,7 +228,7 @@ export type post = {
 	saved: boolean;
 	saves: number;
 	title: string;
-	topics: [string, string][];
+	hashtags: [string, string][];
 	created_at: string;
 };
 

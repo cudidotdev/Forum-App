@@ -69,18 +69,18 @@
 		</div>
 
 		<div class="flex-grow hidden sm:flex justify-end flex-wrap gap-2">
-			{#each data.topics as topic}
-				<p class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(topic[1])}">
-					{topic[0]}
+			{#each data.hashtags as hashtag}
+				<p class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(hashtag[1])}">
+					{hashtag[0]}
 				</p>
 			{/each}
 		</div>
 	</div>
 
 	<div class="flex sm:hidden gap-2 flex-wrap">
-		{#each data.topics as topic}
-			<button class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(topic[1])}">
-				{topic[0]}
+		{#each data.hashtags as hashtag}
+			<button class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(hashtag[1])}">
+				{hashtag[0]}
 			</button>
 		{/each}
 	</div>
