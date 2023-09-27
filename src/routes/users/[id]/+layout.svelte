@@ -3,8 +3,6 @@
 	import auth from '$lib/stores/auth';
 
 	export let data: PageData;
-
-	console.log(data.user.username);
 </script>
 
 <div class="flex flex-col gap-2 md:gap-4 w-full max-w-screen-lg mx-auto">

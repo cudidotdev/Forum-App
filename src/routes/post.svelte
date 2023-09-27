@@ -12,8 +12,6 @@
 	export let saved: boolean;
 	export let body: string;
 	export let created_at: string;
-
-	console.log(author.name);
 </script>
 
 <a
