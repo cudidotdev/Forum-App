@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { color_tag_map } from '$lib/constants/colors';
+	import { text_color_tag_map } from '$lib/constants/colors';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
 	import SaveButton from './save-button.svelte';
 
@@ -10,7 +10,6 @@
 	export let comments: number;
 	export let hashtags: [string, string][];
 	export let saved: boolean;
-	export let body: string;
 	export let created_at: string;
 </script>
 
@@ -36,25 +35,15 @@
 			<span class="font-bold text-lg">{author.name}</span>
 			<span class="text-neutral-600 text-semibold">4 hrs ago</span>
 		</div>
-
-		<div class="flex-grow hidden sm:flex justify-end flex-wrap gap-2">
-			{#each hashtags as hashtag}
-				<p class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(hashtag[1])}">
-					{hashtag[0]}
-				</p>
-			{/each}
-		</div>
 	</div>
 
-	<div class="flex sm:hidden gap-2 flex-wrap">
+	<div class="flex gap-2 flex-wrap">
 		{#each hashtags as hashtag}
-			<button class="px-4 py-1 rounded-lg border font-semibold {color_tag_map.get(hashtag[1])}">
-				{hashtag[0]}
+			<button class="p-1 rounded-lg font-semibold {text_color_tag_map.get(hashtag[1])}">
+				#{hashtag[0]}
 			</button>
 		{/each}
 	</div>
-
-	<p class="whitespace-pre">{body}</p>
 
 	<div class="flex gap-4 flex-wrap [&>*]:flex-shrink-0">
 		<div class="flex gap-2">

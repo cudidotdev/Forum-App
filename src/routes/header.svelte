@@ -17,7 +17,14 @@
 				<button class="primary-btn" type="button" on:click={toggle_sign_in}>Sign in</button>
 			{:else}
 				<a href="/users/{$auth.user.id}">
-					<span class="flex w-10 h-10 p-0.5 bg-neutral-200 rounded-full" />
+					<span class="flex w-10 h-10 p-0.5 bg-neutral-200 rounded-full">
+						<img
+							src="https://api.dicebear.com/7.x/adventurer/svg?seed={$auth.user
+								.username}&backgroundType=gradientLinear&backgroundColor=EC5F5F,ffcfbf"
+							alt=""
+							class="w-full h-full flex rounded-full"
+						/>
+					</span>
 				</a>
 			{/if}
 		</div>
