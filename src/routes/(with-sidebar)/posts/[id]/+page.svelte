@@ -53,7 +53,14 @@
 
 	<div class="flex items-center gap-4">
 		<a href="/users/{data.author.id}">
-			<span class="flex w-12 h-12 bg-neutral-100 flex-shrink-0 rounded-full" />
+			<span class="flex w-14 h-14 p-1 bg-neutral-100 flex-shrink-0 rounded-full">
+				<img
+					src="https://api.dicebear.com/7.x/adventurer/svg?seed={data.author
+						.name}&backgroundType=gradientLinear&backgroundColor=EC5F5F,ffcfbf"
+					alt=""
+					class="w-full h-full flex rounded-full"
+				/>
+			</span>
 		</a>
 
 		<div class="flex flex-col flex-shrink-0">

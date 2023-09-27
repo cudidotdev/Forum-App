@@ -15,7 +15,14 @@
 
 <div class="flex gap-3 items-center">
 	<a href="/users/{comment.author.id}">
-		<span class="flex w-12 h-12 rounded-full flex-shrink-0 bg-neutral-100" />
+		<span class="flex w-12 h-12 p-0.5 rounded-full flex-shrink-0 bg-neutral-100">
+			<img
+				src="https://api.dicebear.com/7.x/adventurer/svg?seed={comment.author
+					.name}&backgroundType=gradientLinear&backgroundColor=EC5F5F,ffcfbf"
+				alt=""
+				class="w-full h-full flex rounded-full"
+			/>
+		</span>
 	</a>
 
 	<a href="/users/{comment.author.id}" class="font-bold text-lg">
