@@ -44,7 +44,7 @@
 <div class="min-h-screen bg-neutral-100">
 	<Header />
 
-	<div class="p-2 sm:p-4">
+	<div class="p-4">
 		<div class="max-w-screen-lg mx-auto flex gap-4 items-start">
 			<slot />
 		</div>
