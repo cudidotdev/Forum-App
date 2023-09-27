@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Posts from '../../posts.svelte';
 	import type { PageData } from './$types';
-	import auth from '$lib/stores/auth';
 
 	export let data: PageData;
 </script>

@@ -8,7 +8,7 @@
 	import { onDestroy } from 'svelte';
 
 	let title_input: HTMLInputElement;
-	let topic_input: HTMLInputElement;
+	let hashtag_input: HTMLInputElement;
 	let body_input: HTMLTextAreaElement;
 
 	let submitting = false;
@@ -31,7 +31,7 @@
 
 		let data = await api.posts.create({
 			title: title_input.value,
-			topics: topic_input.value.split(','),
+			hashtags: hashtag_input.value.split(','),
 			body: body_input.value,
 			access_token: $auth.user?.access_token || ''
 		});
@@ -47,9 +47,9 @@
 					title_input.select();
 					title_input.focus();
 					break;
-				case 'topics':
-					topic_input.select();
-					topic_input.focus();
+				case 'hashtags':
+					hashtag_input.select();
+					hashtag_input.focus();
 					break;
 				case 'body':
 					body_input.select();
@@ -86,9 +86,9 @@
 
 		<input
 			type="text"
-			placeholder="Topics: Seperate with commas"
+			placeholder="Hashtags: Seperate with commas"
 			class="input"
-			bind:this={topic_input}
+			bind:this={hashtag_input}
 		/>
 
 		<textarea class="input resize-none h-96 sm:h-80" placeholder="Body" bind:this={body_input} />

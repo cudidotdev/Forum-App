@@ -3,19 +3,19 @@ import api, { type error } from '.';
 const posts = {
 	create({
 		title,
-		topics,
+		hashtags,
 		body,
 		access_token
 	}: {
 		title: string;
-		topics: string[];
+		hashtags: string[];
 		body: string;
 		access_token: string;
 	}): Promise<create_post_response> {
 		return new Promise((resolve) => {
 			fetch(api.url() + '/posts', {
 				method: 'POST',
-				body: JSON.stringify({ title, topics, body }),
+				body: JSON.stringify({ title, hashtags, body }),
 				headers: {
 					Authorization: `Bearer ${access_token}`,
 					'Content-Type': 'application/json'
