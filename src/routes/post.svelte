@@ -3,7 +3,7 @@
 	import { text_color_tag_map } from '$lib/constants/colors';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
 	import SaveButton from './save-button.svelte';
-	import { filterByHashtag } from './utils';
+	import { calcTimeDiff, filterByHashtag } from './utils';
 
 	export let id: number;
 	export let title: string;
@@ -14,10 +14,14 @@
 	export let created_at: string;
 </script>
 
-<button
-	class="box p-4 sm:p-8 flex flex-col gap-4 hover:border-brand-color-light transition"
-	on:click|preventDefault={() => {
+<div
+	tabindex="-1"
+	class="box p-4 sm:p-8 flex flex-col gap-4 hover:border-brand-color-light transition cursor-pointer"
+	on:click={() => {
 		goto(`/posts/${id}`);
+	}}
+	on:keydown={(e) => {
+		if (e.key == 'Enter') goto(`/posts/${id}`);
 	}}
 >
 	<h4 class="text-2xl sm:text-3xl font-title font-semibold">
@@ -40,7 +44,7 @@
 			<button on:click|stopPropagation={() => goto(`/users/${id}`)} class="font-bold text-lg">
 				{author.name}
 			</button>
-			<span class="text-neutral-600 text-semibold">4 hrs ago</span>
+			<span class="text-neutral-600 text-semibold">{calcTimeDiff(created_at)} ago</span>
 		</div>
 	</div>
 
@@ -65,4 +69,4 @@
 
 		<SaveButton bind:saved post_id={id} />
 	</div>
-</button>
+</div>

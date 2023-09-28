@@ -5,6 +5,7 @@
 	import page_loader from '$lib/stores/page-loader';
 	import { count_replies } from '$lib/utils';
 	import SaveButton from '../../../save-button.svelte';
+	import { calcTimeDiff, filterByHashtag } from '../../../utils';
 	import type { PageData } from './$types';
 	import CommentSorter from './comment-sorter.svelte';
 	import Comments from './comments.svelte';
@@ -69,15 +70,18 @@
 
 		<div class="flex flex-col flex-shrink-0">
 			<a href="/users/{data.author.id}" class="font-bold text-lg">{data.author.name}</a>
-			<span class="text-neutral-600 text-semibold">4 hrs ago</span>
+			<span class="text-neutral-600 text-semibold">{calcTimeDiff(data.created_at)} ago</span>
 		</div>
 	</div>
 
 	<div class="flex-grow flex flex-wrap gap-2">
 		{#each data.hashtags as hashtag}
-			<p class="p-1 rounded-lg font-semibold {text_color_tag_map.get(hashtag[1])}">
+			<button
+				on:click={() => filterByHashtag(hashtag[0])}
+				class="p-1 rounded-lg font-semibold {text_color_tag_map.get(hashtag[1])}"
+			>
 				#{hashtag[0]}
-			</p>
+			</button>
 		{/each}
 	</div>
 

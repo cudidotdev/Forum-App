@@ -3,6 +3,7 @@
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
 	import { active_reply } from '$lib/stores/active-reply';
 	import { count_replies } from '$lib/utils';
+	import { calcTimeDiff } from '../../../utils';
 	import Comments from './comments.svelte';
 
 	export let comment: reply;
@@ -29,8 +30,12 @@
 		{comment.author.name}
 	</a>
 
-	<span class="font-semibold hidden sm:inline text-neutral-600">4 hrs ago</span>
-	<span class="font-semibold inline sm:hidden text-neutral-600">4 h</span>
+	<span class="font-semibold hidden sm:inline text-neutral-600"
+		>{calcTimeDiff(comment.created_at)}</span
+	>
+	<span class="font-semibold inline sm:hidden text-neutral-600"
+		>{calcTimeDiff(comment.created_at)}</span
+	>
 </div>
 
 <div class="flex gap-3 items-stretch">
