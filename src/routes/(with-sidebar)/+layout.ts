@@ -4,7 +4,6 @@ import type { LayoutLoad } from './$types';
 
 export const load = (async () => {
 	const res = await api.hashtags.fetch_trending();
-	console.log(res);
 
 	if (!res.success) {
 		throw error(res.error?.status || 500, {

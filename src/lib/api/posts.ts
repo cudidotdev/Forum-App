@@ -33,15 +33,17 @@ const posts = {
 		page = 1,
 		limit = 20,
 		sort = 'highest',
+		hashtag,
 		access_token
 	}: {
 		page?: number;
 		limit?: number;
 		sort?: 'highest' | 'lowest' | 'latest' | 'oldest';
+		hashtag?: string;
 		access_token?: string;
 	}): Promise<fetch_posts_response> {
 		return new Promise((resolve) => {
-			fetch(api.url() + `/posts?sort=${sort}&page=${page}&limit=${limit}`, {
+			fetch(api.url() + `/posts?sort=${sort}&page=${page}&limit=${limit}&hashtag=${hashtag}`, {
 				method: 'GET',
 				headers: {
 					Authorization: `Bearer ${access_token}`,
