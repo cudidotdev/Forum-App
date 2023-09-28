@@ -3,6 +3,7 @@
 	import { text_color_tag_map } from '$lib/constants/colors';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
 	import SaveButton from './save-button.svelte';
+	import { filterByHashtag } from './utils';
 
 	export let id: number;
 	export let title: string;
@@ -13,33 +14,42 @@
 	export let created_at: string;
 </script>
 
-<a
+<button
 	class="box p-4 sm:p-8 flex flex-col gap-4 hover:border-brand-color-light transition"
-	href="/posts/{id}"
 	on:click|preventDefault={() => {
 		goto(`/posts/${id}`);
 	}}
 >
-	<h4 class="text-2xl sm:text-3xl font-title font-semibold">{title}</h4>
+	<h4 class="text-2xl sm:text-3xl font-title font-semibold">
+		<a href="/posts/{id}" class="hover:text-brand-color-light">{title}</a>
+	</h4>
 
 	<div class="flex items-center gap-4">
-		<span class="flex w-14 h-14 p-1 bg-neutral-200 flex-shrink-0 rounded-full">
+		<button
+			on:click|stopPropagation={() => goto(`/users/${id}`)}
+			class="flex w-14 h-14 p-1 bg-neutral-200 flex-shrink-0 rounded-full"
+		>
 			<img
 				src="https://api.dicebear.com/7.x/adventurer/svg?seed={author.name}&backgroundType=gradientLinear&backgroundColor=EC5F5F,ffcfbf"
 				alt=""
 				class="w-full h-full flex rounded-full"
 			/>
-		</span>
+		</button>
 
 		<div class="flex flex-col flex-shrink-0">
-			<span class="font-bold text-lg">{author.name}</span>
+			<button on:click|stopPropagation={() => goto(`/users/${id}`)} class="font-bold text-lg">
+				{author.name}
+			</button>
 			<span class="text-neutral-600 text-semibold">4 hrs ago</span>
 		</div>
 	</div>
 
 	<div class="flex gap-2 flex-wrap">
 		{#each hashtags as hashtag}
-			<button class="p-1 rounded-lg font-semibold {text_color_tag_map.get(hashtag[1])}">
+			<button
+				on:click|stopPropagation={() => filterByHashtag(hashtag[0])}
+				class="p-1 rounded-lg font-semibold {text_color_tag_map.get(hashtag[1])}"
+			>
 				#{hashtag[0]}
 			</button>
 		{/each}
@@ -55,4 +65,4 @@
 
 		<SaveButton bind:saved post_id={id} />
 	</div>
-</a>
+</button>

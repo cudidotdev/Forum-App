@@ -1,10 +1,12 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { color_tag_map } from '$lib/constants/colors';
+	import { filterByHashtag } from './utils';
 
 	let tags = [
 		['education', 'blue'],
 		['accouting', 'red'],
-		['making Money', 'green'],
+		['making money', 'green'],
 		['e-commerce', 'blue'],
 		['marketing', 'purple'],
 		['forums', 'yellow'],
@@ -17,12 +19,12 @@
 
 	<div class="mt-4 flex flex-col gap-2">
 		{#each tags as tag}
-			<a
-				href="/?hashtag={tag[0]}"
+			<button
+				on:click|stopPropagation={() => filterByHashtag(tag[0])}
 				class="px-4 py-1 text-left rounded-lg font-semibold border {color_tag_map.get(tag[1])}"
 			>
 				#{tag[0]}
-			</a>
+			</button>
 		{/each}
 	</div>
 </div>
