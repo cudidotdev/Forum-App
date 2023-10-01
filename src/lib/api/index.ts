@@ -4,9 +4,10 @@ import posts from './posts';
 import users from './users';
 import hashtags from './hashtags';
 
+import { PUBLIC_DEV_API_URL, PUBLIC_PROD_API_URL } from '$env/static/public';
+
 const api = {
-	url: () =>
-		!browser || building || dev ? 'http://127.0.0.1:8080' : 'https://api.forum.projects.cudi.dev',
+	url: () => (!browser || building || dev ? PUBLIC_DEV_API_URL : PUBLIC_PROD_API_URL),
 	auth,
 	posts,
 	users,
