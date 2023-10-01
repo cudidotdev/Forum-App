@@ -49,7 +49,7 @@
 				type: 'error'
 			});
 		else {
-			if (res.data.length == 0) {
+			if (res.data.length < limit) {
 				--lastPage;
 				lastPostReached = true;
 			}
@@ -67,7 +67,7 @@
 		//if scrolled down and no new post is fetching
 		if (
 			lastScroll < scrollY &&
-			currentPosition - 20 < innerHeight &&
+			currentPosition - 50 < innerHeight &&
 			!fetchingNewPosts &&
 			!lastPostReached
 		) {
@@ -78,7 +78,7 @@
 		lastScroll = scrollY;
 	}
 
-	function resetCursors() {
+	function resetCursors(...dependencies: any[]) {
 		lastPage = 1;
 		lastPostReached = false;
 	}
