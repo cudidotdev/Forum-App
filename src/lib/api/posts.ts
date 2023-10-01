@@ -33,12 +33,12 @@ const posts = {
 		page = 1,
 		limit = 20,
 		sort = 'highest',
-		hashtag,
+		hashtag = '',
 		access_token
 	}: {
 		page?: number;
 		limit?: number;
-		sort?: 'highest' | 'lowest' | 'latest' | 'oldest';
+		sort?: sort;
 		hashtag?: string;
 		access_token?: string;
 	}): Promise<fetch_posts_response> {
@@ -244,6 +244,8 @@ export type reply = {
 	id: number;
 	replies: reply[];
 };
+
+export type sort = 'highest' | 'lowest' | 'latest' | 'oldest';
 
 type create_post_response =
 	| error
