@@ -42,7 +42,7 @@
 					body: comment_input.value.trim(),
 					replies: [],
 					author: { name: $auth.user?.username || '', id: $auth.user?.id || 0 },
-					created_at: new Date().toDateString()
+					created_at: new Date().toISOString()
 				});
 			else
 				comments.push({
@@ -50,7 +50,7 @@
 					body: comment_input.value.trim(),
 					replies: [],
 					author: { name: $auth.user?.username || '', id: $auth.user?.id || 0 },
-					created_at: new Date().toDateString()
+					created_at: new Date().toISOString()
 				});
 
 			comments = comments;
@@ -66,15 +66,6 @@
 			auth.modal.open();
 			auth.events.on('sign-in', exec_add_comment);
 		}
-	}
-
-	function api_add_comment(body: string, partial_id: number) {
-		api.posts.add_comment({
-			body,
-			post_id,
-			parent_id,
-			access_token: $auth.user?.access_token
-		});
 	}
 </script>
 

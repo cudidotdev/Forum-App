@@ -30,7 +30,7 @@
 
 	<div class="flex items-center gap-4">
 		<button
-			on:click|stopPropagation={() => goto(`/users/${id}`)}
+			on:click|stopPropagation={() => goto(`/users/${author.id}`)}
 			class="flex w-14 h-14 p-1 bg-neutral-200 flex-shrink-0 rounded-full"
 		>
 			<img
@@ -41,7 +41,10 @@
 		</button>
 
 		<div class="flex flex-col flex-shrink-0">
-			<button on:click|stopPropagation={() => goto(`/users/${id}`)} class="font-bold text-lg">
+			<button
+				on:click|stopPropagation={() => goto(`/users/${author.id}`)}
+				class="font-bold text-lg"
+			>
 				{author.name}
 			</button>
 			<span class="text-neutral-600 text-semibold">{calcTimeDiff(created_at)} ago</span>

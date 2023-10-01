@@ -39,10 +39,6 @@
 </div>
 
 <div class="flex gap-3 items-stretch">
-	<div class="hidden md:flex w-12 flex-shrink-0 justify-center">
-		<div class="h-full bg-neutral-200 w-px" />
-	</div>
-
 	<div class="flex flex-col gap-3 w-full flex-grow">
 		<p class="whitespace-pre-wrap">{comment.body}</p>
 
@@ -60,7 +56,7 @@
 		</button>
 
 		<div class="flex w-full">
-			<div class="flex md:hidden mr-4 smc:mr-6 flex-shrink-0 justify-center">
+			<div class="flex mr-4 smc:mr-6 flex-shrink-0 justify-center">
 				<div class="h-full bg-neutral-200 w-px" />
 			</div>
 

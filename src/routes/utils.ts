@@ -22,7 +22,10 @@ export function removeHashtag() {
 }
 
 export function calcTimeDiff(time: string) {
-	const milisecDiff = Date.now() - new Date(time + 'Z').getTime();
+	//incase of calculating postgres time without Z and js iso_string with Z
+	if (!time.endsWith('Z')) time = time + 'Z';
+
+	const milisecDiff = Date.now() - new Date(time).getTime();
 	const secsDiff = Math.floor(milisecDiff / 1000);
 	const minsDiff = Math.floor(milisecDiff / (1000 * 60));
 	const hrsDiff = Math.floor(milisecDiff / (1000 * 60 * 60));
