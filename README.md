@@ -3,11 +3,11 @@
 This is the front-end of a Forum application built with svelte and tailwind css.
 
 In this application, you can 
-- You can write, save and comment on a post.
-- You can reply a comment, which in turn be replied to.
-- You can filter post by hashtags and sort by latest or highest engaged post.
-- You can also view users and see their created post.
-- You can also see posts saved by a user.
+- Write, save and comment on a post.
+- Reply a comment, which in turn be replied to.
+- Filter post by hashtags and sort by latest or highest engaged post.
+- View users and see their created post.
+- View posts saved by a user.
 
 Here is a preview:
 ![forum_homepage](https://github.com/CudiLala/Forum-App/assets/88282186/c73b9345-ef06-4831-88d0-74603bfcb0fc)
