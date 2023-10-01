@@ -85,7 +85,7 @@
 		{/each}
 	</div>
 
-	<p class="whitespace-pre my-6 font-medium">{data.body}</p>
+	<p class="whitespace-pre-wrap my-6 font-medium">{data.body}</p>
 
 	<div class="flex gap-4 flex-wrap [&>*]:flex-shrink-0">
 		<div class="flex gap-2">
