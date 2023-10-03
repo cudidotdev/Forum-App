@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import auth from '$lib/stores/auth';
+	import { createSvgFromSeed } from '../../utils';
 
 	export let data: PageData;
 </script>
@@ -13,8 +14,7 @@
 					class="w-28 h-28 md:w-52 md:h-52 p-1 flex rounded-full bg-neutral-100 border grow-0 shrink-0 border-neutral-300"
 				>
 					<img
-						src="https://api.dicebear.com/7.x/adventurer/svg?seed={data.user
-							.username}&backgroundType=gradientLinear&backgroundColor=EC5F5F,ffcfbf"
+						src={createSvgFromSeed({ seed: data.user.username })}
 						alt=""
 						class="w-full h-full flex rounded-full"
 					/>

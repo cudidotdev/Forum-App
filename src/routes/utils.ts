@@ -1,4 +1,6 @@
 import { goto } from '$app/navigation';
+import { createAvatar } from '@dicebear/core';
+import { adventurer } from '@dicebear/collection';
 
 export function filterByHashtag(hashtag: string) {
 	const search = new URLSearchParams(window.location.search);
@@ -42,4 +44,28 @@ export function calcTimeDiff(time: string) {
 	if (daysDiff < 60) return `${daysDiff} days`;
 	if (weeksDiff == 1) return '1 week';
 	return `${weeksDiff} weeks`;
+}
+
+export function createSvgFromSeed({ seed }: { seed: string }) {
+	const avatar = createAvatar(adventurer, {
+		seed,
+		backgroundType: ['gradientLinear'],
+		backgroundColor: ['EC5F5F', 'ffcfbf']
+	});
+
+	return avatar.toDataUriSync();
+}
+
+export function genericAvatarSvg() {
+	const avatar = createAvatar(adventurer, {
+		seed: 'seed',
+		backgroundType: ['gradientLinear'],
+		backgroundColor: ['bdbdbd', 'efefef'],
+		eyes: ['variant01'],
+		hairColor: ['5e5e5e'],
+		mouth: ['variant09'],
+		skinColor: ['ffffff']
+	});
+
+	return avatar.toDataUriSync();
 }

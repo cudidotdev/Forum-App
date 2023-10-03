@@ -1,5 +1,6 @@
 <script lang="ts">
 	import auth from '$lib/stores/auth';
+	import { createSvgFromSeed } from './utils';
 
 	function toggle_sign_in() {
 		auth.modal.toggle();
@@ -19,8 +20,7 @@
 				<a href="/users/{$auth.user.id}">
 					<span class="flex w-10 h-10 p-0.5 bg-neutral-200 rounded-full">
 						<img
-							src="https://api.dicebear.com/7.x/adventurer/svg?seed={$auth.user
-								.username}&backgroundType=gradientLinear&backgroundColor=EC5F5F,ffcfbf"
+							src={createSvgFromSeed({ seed: $auth.user.username })}
 							alt=""
 							class="w-full h-full flex rounded-full"
 						/>

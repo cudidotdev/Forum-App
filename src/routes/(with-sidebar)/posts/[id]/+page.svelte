@@ -5,7 +5,7 @@
 	import page_loader from '$lib/stores/page-loader';
 	import { count_replies } from '$lib/utils';
 	import SaveButton from '../../../save-button.svelte';
-	import { calcTimeDiff, filterByHashtag } from '../../../utils';
+	import { calcTimeDiff, createSvgFromSeed, filterByHashtag } from '../../../utils';
 	import type { PageData } from './$types';
 	import CommentSorter from './comment-sorter.svelte';
 	import Comments from './comments.svelte';
@@ -60,8 +60,7 @@
 		<a href="/users/{data.author.id}">
 			<span class="flex w-14 h-14 p-1 bg-neutral-100 flex-shrink-0 rounded-full">
 				<img
-					src="https://api.dicebear.com/7.x/adventurer/svg?seed={data.author
-						.name}&backgroundType=gradientLinear&backgroundColor=EC5F5F,ffcfbf"
+					src={createSvgFromSeed({ seed: data.author.name })}
 					alt=""
 					class="w-full h-full flex rounded-full"
 				/>

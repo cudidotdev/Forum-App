@@ -3,7 +3,7 @@
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
 	import { active_reply } from '$lib/stores/active-reply';
 	import { count_replies } from '$lib/utils';
-	import { calcTimeDiff } from '../../../utils';
+	import { calcTimeDiff, createSvgFromSeed } from '../../../utils';
 	import Comments from './comments.svelte';
 
 	export let comment: reply;
@@ -18,8 +18,7 @@
 	<a href="/users/{comment.author.id}">
 		<span class="flex w-12 h-12 p-0.5 rounded-full flex-shrink-0 bg-neutral-100">
 			<img
-				src="https://api.dicebear.com/7.x/adventurer/svg?seed={comment.author
-					.name}&backgroundType=gradientLinear&backgroundColor=EC5F5F,ffcfbf"
+				src={createSvgFromSeed({ seed: comment.author.name })}
 				alt=""
 				class="w-full h-full flex rounded-full"
 			/>

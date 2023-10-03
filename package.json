@@ -35,6 +35,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@dicebear/collection": "^7.0.1",
+		"@dicebear/core": "^7.0.1",
 		"dotenv": "^16.3.1",
 		"events": "^3.3.0",
 		"js-cookie": "^3.0.5"

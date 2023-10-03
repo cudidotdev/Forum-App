@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import auth from '$lib/stores/auth';
+	import { createSvgFromSeed, genericAvatarSvg } from './utils';
 
 	$: userAvatar = $auth.user
-		? `https://api.dicebear.com/7.x/adventurer/svg?seed=${$auth.user.username}&backgroundType=gradientLinear&backgroundColor=EC5F5F,ffcfbf`
-		: 'https://api.dicebear.com/7.x/adventurer/svg?&backgroundType=gradientLinear&eyes=variant01&hairColor=5e5e5e&mouth=variant09&skinColor=ffffff&backgroundColor=bdbdbd,efefef';
+		? createSvgFromSeed({ seed: $auth.user.username })
+		: genericAvatarSvg();
 </script>
 
 <div class="box py-2 px-4 flex gap-4 items-center">

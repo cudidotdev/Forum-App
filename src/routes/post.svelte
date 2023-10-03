@@ -3,7 +3,7 @@
 	import { text_color_tag_map } from '$lib/constants/colors';
 	import CommentIcon from '$lib/icons/comment-icon.svelte';
 	import SaveButton from './save-button.svelte';
-	import { calcTimeDiff, filterByHashtag } from './utils';
+	import { calcTimeDiff, createSvgFromSeed, filterByHashtag } from './utils';
 
 	export let id: number;
 	export let title: string;
@@ -34,7 +34,7 @@
 			class="flex w-14 h-14 p-1 bg-neutral-200 flex-shrink-0 rounded-full"
 		>
 			<img
-				src="https://api.dicebear.com/7.x/adventurer/svg?seed={author.name}&backgroundType=gradientLinear&backgroundColor=EC5F5F,ffcfbf"
+				src={createSvgFromSeed({ seed: author.name })}
 				alt=""
 				class="w-full h-full flex rounded-full"
 			/>
