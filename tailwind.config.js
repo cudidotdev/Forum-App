@@ -8,7 +8,13 @@ export default {
 				title: ['Raleway', 'sans-serif']
 			},
 			screens: {
-				smc: '30rem'
+        smc: '30rem',
+				sm: '40rem',
+				md: '48rem',
+				mdc: '56rem',
+				lg: '64rem',
+				xl: '80rem',
+				'2xl': '90rem'
 			},
 			colors: {
 				'brand-color': '#EA4646',
